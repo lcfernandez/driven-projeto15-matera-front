@@ -1,0 +1,3 @@
+export const COMPLEMENTARY_BG_COLOR = "#000000";
+
+export const COMPLEMENTARY_TXT_COLOR = "#FFFFFF";

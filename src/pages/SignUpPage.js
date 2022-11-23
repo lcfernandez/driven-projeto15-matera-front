@@ -1,5 +1,6 @@
 import { BASE_URL } from "../constants/url";
 
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -11,6 +12,8 @@ export default function SignUpPage() {
     const [email, setEmail] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const [repeatPassword, setRepeatPassword] = useState(undefined);
+
+    const navigate = useNavigate();
 
     function signUp(e) {
         e.preventDefault();
@@ -30,7 +33,12 @@ export default function SignUpPage() {
 
             axios
                 .post(`${BASE_URL}/sign-up`, body)
-                .then(() => alert("Cadastro feito com sucesso!"))
+                .then(
+                    () => {
+                        alert("Cadastro feito com sucesso!");
+                        navigate("/login");
+                    }
+                )
                 .catch(
                     err => {
                         alert(err.response.data.message);

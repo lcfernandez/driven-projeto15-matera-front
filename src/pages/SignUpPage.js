@@ -7,9 +7,8 @@ import styled from "styled-components";
 
 export default function SignUpPage() {
     const [disabled, setDisabled] = useState(false);
-    const [name, setName] = useState(undefined);
-    const [cpf, setCpf] = useState(undefined);
     const [email, setEmail] = useState(undefined);
+    const [name, setName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const [repeatPassword, setRepeatPassword] = useState(undefined);
 
@@ -25,7 +24,6 @@ export default function SignUpPage() {
 
             const body = {
                 name,
-                cpf,
                 email,
                 password,
                 repeat_password: repeatPassword
@@ -35,7 +33,7 @@ export default function SignUpPage() {
                 .post(`${BASE_URL}/sign-up`, body)
                 .then(
                     () => {
-                        alert("Cadastro feito com sucesso!");
+                        alert("Usuário cadastrado com sucesso!");
                         navigate("/login");
                     }
                 )
@@ -59,16 +57,6 @@ export default function SignUpPage() {
                     disabled={disabled && true}
                     onChange={e => setName(e.target.value)}
                     placeholder="Nome completo"
-                    required
-                    type="text"
-                />
-
-                <input
-                    disabled={disabled && true}
-                    maxLength="14"
-                    minLength="14"
-                    onChange={e => setCpf(e.target.value)}
-                    placeholder="CPF"
                     required
                     type="text"
                 />

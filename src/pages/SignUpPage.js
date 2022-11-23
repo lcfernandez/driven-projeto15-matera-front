@@ -17,6 +17,12 @@ export default function SignUpPage() {
                     required
                     type="text"
                 />
+
+                <input
+                    placeholder="CPF"
+                    required
+                    type="text"
+                />
                 
                 <input
                     placeholder="E-mail"
@@ -34,6 +40,35 @@ export default function SignUpPage() {
                     placeholder="Confirmar senha"
                     required
                     type="password"
+                />
+
+                <input
+                    placeholder="Logradouro"
+                    required
+                    type="text"
+                />
+
+                <input
+                    placeholder="Nº"
+                    required
+                    type="number"
+                />
+
+                <input
+                    placeholder="Complemento"
+                    type="text"
+                />
+
+                <input
+                    placeholder="Bairro"
+                    required
+                    type="text"
+                />
+
+                <input
+                    placeholder="Cidade"
+                    required
+                    type="text"
                 />
 
                 <button>Cadastrar</button>

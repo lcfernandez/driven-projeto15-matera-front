@@ -1,6 +1,6 @@
 import { BASE_URL } from "../constants/url";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -100,7 +100,9 @@ export default function SignUpPage() {
                 <button>Cadastrar</button>
             </Form>
 
-            Já tem uma conta? Entre agora!
+            <Link to="/login">
+                Já tem uma conta? Entre agora!
+            </Link>
         </SignUpPageContainer>
     );
 }

@@ -1,7 +1,24 @@
+import UsernameContext from "../contexts/UsernameContext";
+
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components"
+import styled from "styled-components";
 
 export default function Header() {
+    const [username] = useContext(UsernameContext);
+
+    function handleActions() {
+        if (username) {
+            return `Olá, ${username}`;
+        } else {
+            return (
+                <>
+                    <Link to="/login">Entre</Link> ou <Link to="/cadastro">cadastre-se</Link>
+                </>
+            );
+        }
+    }
+
     return (
         <HeaderContainer>
             <div>
@@ -21,9 +38,7 @@ export default function Header() {
             </div>
             
             <div>
-                Entre ou <Link to="/cadastro">cadastre-se</Link>
-                
-                -
+                {handleActions()} -
                 
                 Carrinho
             </div>

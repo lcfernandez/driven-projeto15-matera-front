@@ -3,6 +3,9 @@ import GlobalStyle from "./assets/styles/GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
+import TokenContext from "./contexts/TokenContext";
+import UsernameContext from "./contexts/UsernameContext";
+
 import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -18,6 +21,13 @@ import { useState } from "react";
 
 function App() {
     const [products, setProducts] = useState(undefined);
+    const [token, setToken] = useState(
+        localStorage.getItem("token") || undefined
+    );
+
+    const [username, setUsername] = useState(
+        localStorage.getItem("username") || undefined
+    );
 
     return (
         <AppContext.Provider
@@ -26,18 +36,22 @@ function App() {
             <BrowserRouter>
                 <GlobalStyle />
 
-                <Header />
+                <TokenContext.Provider value={[token, setToken]}>
+                <UsernameContext.Provider value={[username, setUsername]}>
+                    <Header />
 
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/cadastro" element={<SignUpPage />} />
-                    <Route path="/login" element={<SignInPage />} />
-                    <Route path="/produtos" element={<ProductsPage />} />
-                    <Route path="/produtos/cadeiras" element={<ChairsPage />} />
-                    <Route path="/produtos/camas" element={<BedsPage />} />
-                    <Route path="/produtos/sofas" element={<SofasPage />} />
-                    <Route path="/produtos/mesas" element={<TablesPage />} />
-                </Routes>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/cadastro" element={<SignUpPage />} />
+                        <Route path="/login" element={<SignInPage />} />
+                        <Route path="/produtos" element={<ProductsPage />} />
+                        <Route path="/produtos/cadeiras" element={<ChairsPage />} />
+                        <Route path="/produtos/camas" element={<BedsPage />} />
+                        <Route path="/produtos/sofas" element={<SofasPage />} />
+                        <Route path="/produtos/mesas" element={<TablesPage />} />
+                    </Routes>
+                </UsernameContext.Provider>
+                </TokenContext.Provider>
 
                 <Footer />
             </BrowserRouter>

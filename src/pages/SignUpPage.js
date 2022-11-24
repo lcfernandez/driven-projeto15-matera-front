@@ -1,9 +1,11 @@
+import FormStyle from "../assets/styles/FormStyle";
+import SignPageStyle from "../assets/styles/SignPageStyle";
+
 import { BASE_URL } from "../constants/url";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import styled from "styled-components";
 
 export default function SignUpPage() {
     const [disabled, setDisabled] = useState(false);
@@ -48,12 +50,12 @@ export default function SignUpPage() {
     }
 
     return(
-        <SignUpPageContainer>
+        <SignPageStyle>
             <div>
                 Cadastro
             </div>
 
-            <Form onSubmit={signUp}>
+            <FormStyle onSubmit={signUp}>
                 <input
                     disabled={disabled && true}
                     minLength="1"
@@ -91,24 +93,11 @@ export default function SignUpPage() {
                 />
 
                 <button>Cadastrar</button>
-            </Form>
+            </FormStyle>
 
             <Link to="/login">
                 Já tem uma conta? Entre agora!
             </Link>
-        </SignUpPageContainer>
+        </SignPageStyle>
     );
 }
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-`;
-
-const SignUpPageContainer = styled.div`
-    text-align: center;
-
-    > div {
-        text-align: left;
-    }
-`;

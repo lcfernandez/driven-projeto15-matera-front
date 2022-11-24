@@ -2,7 +2,7 @@ import { ProductsTitle } from "../components/ProductsTitle";
 import { ProductsContainer, ProductsUl, ListItem } from "../common.js/common";
 import { BASE_URL } from "../constants/url";
 import { SideMenu } from "../components/SideMenu";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../components/context";
 import axios from "axios";
 

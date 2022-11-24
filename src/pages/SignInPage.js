@@ -3,14 +3,16 @@ import SignPageStyle from "../assets/styles/SignPageStyle";
 
 import { BASE_URL } from "../constants/url.js";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-export default function SignInPage() {
+export default function SignInPage({ setUsername }) {
     const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState(undefined);
     const [password, setPassword] = useState(undefined);
+
+    const navigate = useNavigate();
 
     function signIn(e) {
         e.preventDefault();
@@ -27,6 +29,8 @@ export default function SignInPage() {
             .then(
                 res => {
                     console.log(res.data);
+                    setUsername(res.data.name);
+                    navigate("/");
                 }
             )
             .catch(

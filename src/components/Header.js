@@ -1,7 +1,19 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 
-export default function Header() {
+export default function Header({ username }) {
+    function handleActions() {
+        if (username) {
+            return `Olá, ${username}`;
+        } else {
+            return (
+                <>
+                    <Link to="/login">Entre</Link> ou <Link to="/cadastro">cadastre-se</Link>
+                </>
+            );
+        }
+    }
+
     return (
         <HeaderContainer>
             <div>
@@ -21,7 +33,7 @@ export default function Header() {
             </div>
             
             <div>
-                <Link to="/login">Entre</Link> ou <Link to="/cadastro">cadastre-se</Link> -
+                {handleActions()} -
                 
                 Carrinho
             </div>

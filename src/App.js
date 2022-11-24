@@ -8,18 +8,21 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from "react";
 
 function App() {
+    const [username, setUsername] = useState(undefined);
+
     return (
         <BrowserRouter>
             <GlobalStyle />
 
-            <Header />
+            <Header username={username} />
 
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/cadastro" element={<SignUpPage />} />
-                <Route path="/login" element={<SignInPage />} />
+                <Route path="/login" element={<SignInPage setUsername={setUsername} />} />
             </Routes>
 
             <Footer />

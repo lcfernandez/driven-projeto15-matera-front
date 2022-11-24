@@ -10,13 +10,13 @@ export const ProductsPage = () => {
     const { products, setProducts } = useContext(AppContext);
 
     useEffect(() => {
-        getProducts();
-    }, []);
+        getProducts(setProducts);
+    }, [setProducts]);
 
-    const getProducts = async () => {
+    const getProducts = async (setProductsFn) => {
         try {
             const res = await axios.get(`${BASE_URL}/products`);
-            setProducts(res.data);
+            setProductsFn(res.data);
         } catch (err) {
             alert(err.response.data.message);
         }

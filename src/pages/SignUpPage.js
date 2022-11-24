@@ -8,7 +8,7 @@ import styled from "styled-components";
 export default function SignUpPage() {
     const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState(undefined);
-    const [name, setName] = useState(undefined);
+    const [name, setName] = useState("");
     const [password, setPassword] = useState(undefined);
     const [repeatPassword, setRepeatPassword] = useState(undefined);
 
@@ -23,7 +23,7 @@ export default function SignUpPage() {
             setDisabled(true);
 
             const body = {
-                name,
+                name: name.trimEnd(),
                 email,
                 password,
                 repeat_password: repeatPassword
@@ -40,6 +40,7 @@ export default function SignUpPage() {
                 .catch(
                     err => {
                         alert(err.response.data.message);
+                        err.response.data.errors && console.error(err.response.data.errors);
                         setDisabled(false);
                     }
                 );
@@ -55,15 +56,17 @@ export default function SignUpPage() {
             <Form onSubmit={signUp}>
                 <input
                     disabled={disabled && true}
-                    onChange={e => setName(e.target.value)}
-                    placeholder="Nome completo"
+                    minLength="1"
+                    onChange={e => setName(e.target.value.trimStart())}
+                    placeholder="Nome"
                     required
                     type="text"
+                    value={name}
                 />
                 
                 <input
                     disabled={disabled && true}
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value.toLowerCase())}
                     placeholder="E-mail"
                     required
                     type="email"
@@ -71,6 +74,7 @@ export default function SignUpPage() {
                 
                 <input
                     disabled={disabled && true}
+                    minLength="4"
                     onChange={e => setPassword(e.target.value)}
                     placeholder="Senha"
                     required
@@ -79,6 +83,7 @@ export default function SignUpPage() {
                 
                 <input
                     disabled={disabled && true}
+                    minLength="4"
                     onChange={e => setRepeatPassword(e.target.value)}
                     placeholder="Confirmar senha"
                     required

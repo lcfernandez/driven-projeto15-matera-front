@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components"
 
 export default function Header() {
@@ -20,7 +21,7 @@ export default function Header() {
             </div>
             
             <div>
-                Entre ou cadastre-se
+                Entre ou <Link to="/cadastro">cadastre-se</Link>
                 
                 -
                 

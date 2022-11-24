@@ -3,11 +3,17 @@ import SignPageStyle from "../assets/styles/SignPageStyle";
 
 import { BASE_URL } from "../constants/url.js";
 
+import TokenContext from "../contexts/TokenContext";
+import UsernameContext from "../contexts/UsernameContext";
+
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 
-export default function SignInPage({ setUsername }) {
+export default function SignInPage() {
+    const [, setToken] = useContext(TokenContext);
+    const [, setUsername] = useContext(UsernameContext);
+
     const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState(undefined);
     const [password, setPassword] = useState(undefined);
@@ -28,7 +34,9 @@ export default function SignInPage({ setUsername }) {
             .post(`${BASE_URL}/sign-in`, body)
             .then(
                 res => {
+                    setToken(res.data.token);
                     setUsername(res.data.name);
+                    localStorage.setItem("token", res.data.token);
                     localStorage.setItem("username", res.data.name);
 
                     navigate("/");

@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components"
+import UsernameContext from "../contexts/UsernameContext";
 
-export default function Header({ username }) {
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+export default function Header() {
+    const [username] = useContext(UsernameContext);
+
     function handleActions() {
         if (username) {
             return `Olá, ${username}`;

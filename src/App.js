@@ -11,7 +11,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
-    const [username, setUsername] = useState(undefined);
+    const [username, setUsername] = useState(
+        localStorage.getItem("username") || undefined
+    );
 
     return (
         <BrowserRouter>

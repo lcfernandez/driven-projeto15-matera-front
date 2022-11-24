@@ -28,8 +28,9 @@ export default function SignInPage({ setUsername }) {
             .post(`${BASE_URL}/sign-in`, body)
             .then(
                 res => {
-                    console.log(res.data);
                     setUsername(res.data.name);
+                    localStorage.setItem("username", res.data.name);
+
                     navigate("/");
                 }
             )

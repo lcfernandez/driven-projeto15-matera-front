@@ -21,9 +21,7 @@ export default function Header() {
             </div>
             
             <div>
-                Entre ou <Link to="/cadastro">cadastre-se</Link>
-                
-                -
+                <Link to="/login">Entre</Link> ou <Link to="/cadastro">cadastre-se</Link> -
                 
                 Carrinho
             </div>

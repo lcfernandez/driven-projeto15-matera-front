@@ -6,9 +6,11 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "../components/context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import CartContext from "../contexts/CartContext";
 
 export const ProductsPage = () => {
     const { products, setProducts } = useContext(AppContext);
+    const [cart, setCart] = useContext(CartContext);
 
     const navigate = useNavigate();
 
@@ -38,7 +40,12 @@ export const ProductsPage = () => {
                         <p>{price}</p>
                     </span>
 
-                    <button onClick={() => navigate("/carrinho")}>
+                    <button onClick={
+                        () => {
+                            setCart([...cart, { name, price }]);
+                            navigate("/carrinho");
+                        }
+                    }>
                         Comprar
                     </button>
                 </div>

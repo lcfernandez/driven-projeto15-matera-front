@@ -11,7 +11,7 @@ export const AccountMenu = () => {
         <AccountMenuContainer>
             <ul>
                 <li>
-                    <AccountLinks>
+                    <AccountLinks to="/conta/pedidos">
                         <img
                             alt="ícone de pedidos"
                             src={gift}

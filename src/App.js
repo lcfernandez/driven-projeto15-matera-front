@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import AccountPage from "./pages/AccountPage";
+import PurchasesPage from "./pages/PurchasesPage";
 import ProductsPage from "./pages/ProductsPage";
 import BedsPage from "./pages/BedsPage";
 import ChairsPage from "./pages/ChairsPage";
@@ -48,6 +49,7 @@ function App() {
                         <Route path="/cadastro" element={<SignUpPage />} />
                         <Route path="/login" element={<SignInPage />} />
                         <Route path="/conta" element={<AccountPage />} />
+                        <Route path="/conta/pedidos" element={<PurchasesPage />} />
                         <Route path="/produtos" element={<ProductsPage />} />
                         <Route path="/produtos/cadeiras" element={<ChairsPage />} />
                         <Route path="/produtos/camas" element={<BedsPage />} />

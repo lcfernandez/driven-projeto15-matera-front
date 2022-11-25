@@ -17,6 +17,7 @@ import BedsPage from "./pages/BedsPage";
 import ChairsPage from "./pages/ChairsPage";
 import SofasPage from "./pages/SofasPage";
 import TablesPage from "./pages/TablesPage";
+import CartPage from "./pages/CartPage";
 
 import { AppContext } from "./components/context";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -57,6 +58,7 @@ function App() {
                         <Route path="/produtos/camas" element={<BedsPage />} />
                         <Route path="/produtos/sofas" element={<SofasPage />} />
                         <Route path="/produtos/mesas" element={<TablesPage />} />
+                        <Route path="/carrinho" element={<CartPage />} />
                     </Routes>
                 </UsernameContext.Provider>
                 </TokenContext.Provider>

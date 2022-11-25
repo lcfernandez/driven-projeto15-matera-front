@@ -3,7 +3,7 @@ import GlobalStyle from "./assets/styles/GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
-import CartContext from "./contexts/TokenContext";
+import CartContext from "./contexts/CartContext";
 import TokenContext from "./contexts/TokenContext";
 import UsernameContext from "./contexts/UsernameContext";
 

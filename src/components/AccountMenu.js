@@ -20,7 +20,7 @@ export const AccountMenu = () => {
                     </AccountLinks>
                 </li>
                 <li>
-                    <AccountLinks>
+                    <AccountLinks to="/conta/cartoes">
                         <img
                             alt="ícone de cartão"
                             src={card}

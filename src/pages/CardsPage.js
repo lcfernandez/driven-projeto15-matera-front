@@ -20,13 +20,14 @@ const CardsPage = () => {
         getCards();
     });
 
-    const getCards = async () => {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        };
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
 
+
+    const getCards = async () => {
         try {
             const res = await axios.get(`${BASE_URL}/cards`, config);
             setCards(res.data);
@@ -35,19 +36,28 @@ const CardsPage = () => {
         }
     };
 
-    const deleteCard = () => { };
+    const deleteCard = async id => {
+        const confirmed = window.confirm("Você tem certeza que deseja excluir esse cartão?");
+
+        if (confirmed) {
+            try {
+                await axios.delete(`${BASE_URL}/cards/${id}`, config);
+            } catch(err) {
+                alert(err.response.data.message);
+            }
+        }
+    };
 
     const ListofCards = (card) => {
-        const { name, number, expiration, company } = card;
+        const { name, number, expiration, company, _id } = card;
         return (
             <CardListItem>
                 {company}
                 {number}
                 {name}
                 <p>validade: {expiration}</p>
-                <button>
+                <button onClick={e => deleteCard(_id)}>
                     <img
-                        onClick={deleteCard}
                         alt="ícone de deletar"
                         src={close}
                     />

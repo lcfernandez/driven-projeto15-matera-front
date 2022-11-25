@@ -3,6 +3,7 @@ import GlobalStyle from "./assets/styles/GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
+import CartContext from "./contexts/TokenContext";
 import TokenContext from "./contexts/TokenContext";
 import UsernameContext from "./contexts/UsernameContext";
 
@@ -24,6 +25,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
+    const [cart, setCart] = useState(undefined);
     const [products, setProducts] = useState(undefined);
     const [token, setToken] = useState(
         localStorage.getItem("token") || undefined
@@ -42,6 +44,7 @@ function App() {
             <BrowserRouter>
                 <GlobalStyle />
 
+                <CartContext.Provider value={[cart, setCart]}>
                 <TokenContext.Provider value={[token, setToken]}>
                 <UsernameContext.Provider value={[username, setUsername]}>
                     <Header />
@@ -62,6 +65,7 @@ function App() {
                     </Routes>
                 </UsernameContext.Provider>
                 </TokenContext.Provider>
+                </CartContext.Provider>
 
                 <Footer />
             </BrowserRouter>

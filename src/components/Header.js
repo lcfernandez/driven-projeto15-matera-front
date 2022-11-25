@@ -9,7 +9,7 @@ export default function Header() {
 
     function handleActions() {
         if (username) {
-            return `Olá, ${username}`;
+            return <Link to="/conta">Olá, {username}</Link>;
         } else {
             return (
                 <>
@@ -29,17 +29,17 @@ export default function Header() {
                 Produtos
 
                 -
-                
+
                 Sobre
 
                 -
-                
+
                 Contato
             </div>
-            
+
             <div>
                 {handleActions()} -
-                
+
                 Carrinho
             </div>
         </HeaderContainer>

@@ -1,7 +1,7 @@
 import { ProductsTitle } from "../components/ProductsTitle";
 import { ProductsContainer, ProductsUl, ListItem } from "../common.js/common";
 import { BASE_URL } from "../constants/url";
-import { SideMenu } from "../components/SideMenu";
+import { ProductsMenu } from "../components/ProductsMenu";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../components/context";
 import axios from "axios";
@@ -57,7 +57,7 @@ export const ProductsPage = () => {
         <>
             <ProductsTitle />
             <ProductsContainer>
-                <SideMenu />
+                <ProductsMenu />
                 <ProductsDisplay />
             </ProductsContainer>
         </>

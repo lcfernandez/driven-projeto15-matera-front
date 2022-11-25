@@ -1,7 +1,7 @@
 import { ProductsTitle } from "../components/ProductsTitle";
 import { ProductsContainer, ProductsUl, ListItem } from "../common.js/common";
 import { BASE_URL } from "../constants/url";
-import { SideMenu } from "../components/SideMenu";
+import { ProductsMenu } from "../components/ProductsMenu";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../components/context";
 
@@ -53,7 +53,7 @@ const SofasPage = () => {
         <>
             <ProductsTitle />
             <ProductsContainer>
-                <SideMenu />
+                <ProductsMenu />
                 <ProductsDisplay />
             </ProductsContainer>
         </>

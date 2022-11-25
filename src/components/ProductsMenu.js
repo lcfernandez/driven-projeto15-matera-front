@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const SideMenu = () => {
+export const ProductsMenu = () => {
     return (
         <SideMenuContainer>
             <Title>categorias</Title>

@@ -4,10 +4,13 @@ import { BASE_URL } from "../constants/url";
 import { ProductsMenu } from "../components/ProductsMenu";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../components/context";
+import { useNavigate } from "react-router-dom";
 
 const SofasPage = () => {
     const { products } = useContext(AppContext);
     const [sofas, setSofas] = useState(undefined);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         filterProduct(products);
@@ -25,8 +28,16 @@ const SofasPage = () => {
                     alt="imagem do produto"
                     src={`${BASE_URL}${image}`}
                 />
-                <h3>{name}</h3>
-                <p>{price}</p>
+                <div>
+                    <span>
+                        <h3>{name}</h3>
+                        <p>{price}</p>
+                    </span>
+
+                    <button onClick={() => navigate("/carrinho")}>
+                        Comprar
+                    </button>
+                </div>
             </ListItem>
         );
     };

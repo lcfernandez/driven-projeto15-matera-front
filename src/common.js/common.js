@@ -10,10 +10,14 @@ export const ProductsUl = styled.ul`
 `;
 
 export const ListItem = styled.li`
-margin-left: 6px;
+    margin-left: 6px;
     img {
         width: 400px;
         height: 300px;
+    }
+    div {
+        display: flex;
+        justify-content: space-between;
     }
 `;
 

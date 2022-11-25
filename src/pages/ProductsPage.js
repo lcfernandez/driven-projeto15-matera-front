@@ -4,10 +4,13 @@ import { BASE_URL } from "../constants/url";
 import { ProductsMenu } from "../components/ProductsMenu";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../components/context";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const ProductsPage = () => {
     const { products, setProducts } = useContext(AppContext);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         getProducts(setProducts);
@@ -29,8 +32,16 @@ export const ProductsPage = () => {
                     alt="imagem do produto"
                     src={`${BASE_URL}${image}`}
                 />
-                <h3>{name}</h3>
-                <p>{price}</p>
+                <div>
+                    <span>
+                        <h3>{name}</h3>
+                        <p>{price}</p>
+                    </span>
+
+                    <button onClick={() => navigate("/carrinho")}>
+                        Comprar
+                    </button>
+                </div>
             </ListItem>
         );
     };

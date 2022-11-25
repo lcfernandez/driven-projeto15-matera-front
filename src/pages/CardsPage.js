@@ -1,36 +1,39 @@
-import styled from "styled-components";
 import { AccountContainer } from "../assets/styles/AccountStyle";
 import { AccountMenu } from "../components/AccountMenu";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TokenContext from "../contexts/TokenContext";
 import close from "../assets/images/close-outline.png";
 import open from "../assets/images/add-circle-outline.png";
 import { CardsContainer, CardsList, CardListItem, CardFormContainer, CardForm, TextLabel, TextInput } from "../assets/styles/CardsStyles";
-
-const cards = [
-    {
-        _id: "87",
-        name: "FULANO A C",
-        number: "**** **** **** 9075",
-        expiration: "05/2023",
-        code: "818",
-        company: "master"
-    },
-    {
-        _id: "ji",
-        name: "FULANO A C",
-        number: "**** **** **** 9075",
-        expiration: "08/2030",
-        code: "458",
-        company: "visa"
-    }
-];
+import { BASE_URL } from "../constants/url";
+import axios from "axios";
 
 const CardsPage = () => {
-    //const [token] = useContext(TokenContext);
+    const [token] = useContext(TokenContext);
     const [showForm, setShowForm] = useState(false);
-    const [form, setForm] = useState({ name: "", number: "", expiration: "", company: "VISA", code: "" });
+    const [cards, setCards] = useState(undefined);
     const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState({ name: "", number: "", expiration: "", code: "" });
+
+
+    useEffect(() => {
+        getCards();
+    });
+
+    const getCards = async () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        try {
+            const res = await axios.get(`${BASE_URL}/cards`, config);
+            setCards(res.data);
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    };
 
     const deleteCard = () => { };
 
@@ -72,10 +75,15 @@ const CardsPage = () => {
             <CardsContainer>
                 <CardsList>
                     <p>Meus cartões de crédtio</p>
-                    {cards.map(c => <ListofCards
-                        key={c._id}
-                        {...c}
-                    />)}
+                    {!cards
+                        ?
+                        <p>loading</p>
+                        :
+                        cards.map(c => <ListofCards
+                            key={c._id}
+                            {...c}
+                        />)
+                    }
                 </CardsList>
                 <CardFormContainer>
                     <p>Adicione um novo cartão</p>

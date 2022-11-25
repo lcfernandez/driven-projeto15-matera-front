@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { AccountContainer } from "../assets/styles/AccountStyle";
 import { AccountMenu } from "../components/AccountMenu";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import TokenContext from "../contexts/TokenContext";
 import close from "../assets/images/close-outline.png";
+import open from "../assets/images/add-circle-outline.png";
+import { CardsContainer, CardsList, CardListItem, CardFormContainer, CardForm, TextLabel, TextInput } from "../assets/styles/CardsStyles";
 
 const cards = [
     {
@@ -26,13 +28,16 @@ const cards = [
 
 const CardsPage = () => {
     //const [token] = useContext(TokenContext);
+    const [showForm, setShowForm] = useState(false);
+    const [form, setForm] = useState({ name: "", number: "", expiration: "", company: "VISA", code: "" });
+    const [loading, setLoading] = useState(false);
 
-    const deleteCard = () => {};
+    const deleteCard = () => { };
 
     const ListofCards = (card) => {
         const { name, number, expiration, company } = card;
         return (
-            <ListItem>
+            <CardListItem>
                 {company}
                 {number}
                 {name}
@@ -44,8 +49,21 @@ const CardsPage = () => {
                         src={close}
                     />
                 </button>
-            </ListItem>
+            </CardListItem>
         );
+    };
+
+    const setFormStatus = () => {
+        if (showForm === false) {
+            setShowForm(true);
+        } else {
+            setShowForm(false);
+        }
+    }
+
+    const handleForm = e => {
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
     };
 
     return (
@@ -53,40 +71,75 @@ const CardsPage = () => {
             <AccountMenu />
             <CardsContainer>
                 <CardsList>
+                    <p>Meus cartões de crédtio</p>
                     {cards.map(c => <ListofCards
                         key={c._id}
                         {...c}
                     />)}
                 </CardsList>
-                <p></p>
-                <form></form>
+                <CardFormContainer>
+                    <p>Adicione um novo cartão</p>
+                    <button onClick={setFormStatus}>
+                        <img
+                            alt="ícone de adicionar"
+                            src={open}
+                        />
+                    </button>
+                    {showForm
+                        ?
+                        <CardForm>
+                            <TextLabel htmlFor="number">Número do cartão</TextLabel>
+                            <TextInput
+                                type="text"
+                                id="number"
+                                name="number"
+                                value={form.number}
+                                onChange={handleForm}
+                                placeholder="Digite o número"
+                                disabled={loading}
+                                required
+                            />
+                            <TextLabel htmlFor="name">Nome do titular</TextLabel>
+                            <TextInput
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={form.name}
+                                onChange={handleForm}
+                                placeholder="Digite o nome"
+                                disabled={loading}
+                                required
+                            />
+                            <TextLabel htmlFor="expiration">Data de vencimento</TextLabel>
+                            <TextInput
+                                type="text"
+                                id="expiration"
+                                name="expiration"
+                                value={form.expiration}
+                                onChange={handleForm}
+                                placeholder="Digite a data de vencimento"
+                                disabled={loading}
+                                required
+                            />
+                            <TextLabel htmlFor="code">Código de segurança</TextLabel>
+                            <TextInput
+                                type="text"
+                                id="code"
+                                name="code"
+                                value={form.code}
+                                onChange={handleForm}
+                                placeholder="Digite o código de segurança"
+                                disabled={loading}
+                                required
+                            />
+                        </CardForm>
+                        :
+                        ""
+                    }
+                </CardFormContainer>
             </CardsContainer>
         </AccountContainer>
     );
 };
-
-const CardsContainer = styled.div`
-`;
-
-const CardsList = styled.ul``;
-
-const ListItem = styled.li`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 570px;
-    height: 70px;
-    background-color: lightgray;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    button {
-        border: none;
-        background-color: transparent;
-    }
-    img {
-        width: 18px;
-        height: 18px;
-    }
-`;
 
 export default CardsPage;

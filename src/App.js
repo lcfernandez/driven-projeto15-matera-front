@@ -24,9 +24,11 @@ import { useState } from "react";
 
 function App() {
     const [products, setProducts] = useState(undefined);
-    const [token, setToken] = useState(
+    /* const [token, setToken] = useState(
         localStorage.getItem("token") || undefined
-    );
+    ); */
+
+    const [token, setToken] = useState("e839563f-266e-40e6-9d9d-2ec4b523b09f");
 
     const [username, setUsername] = useState("Laisse");
 

@@ -1,50 +1,121 @@
-import styled from "styled-components";
 import { AccountContainer } from "../assets/styles/AccountStyle";
 import { AccountMenu } from "../components/AccountMenu";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TokenContext from "../contexts/TokenContext";
 import close from "../assets/images/close-outline.png";
 import open from "../assets/images/add-circle-outline.png";
 import { CardsContainer, CardsList, CardListItem, CardFormContainer, CardForm, TextLabel, TextInput } from "../assets/styles/CardsStyles";
-
-const cards = [
-    {
-        _id: "87",
-        name: "FULANO A C",
-        number: "**** **** **** 9075",
-        expiration: "05/2023",
-        code: "818",
-        company: "master"
-    },
-    {
-        _id: "ji",
-        name: "FULANO A C",
-        number: "**** **** **** 9075",
-        expiration: "08/2030",
-        code: "458",
-        company: "visa"
-    }
-];
+import { BASE_URL } from "../constants/url";
+import axios from "axios";
 
 const CardsPage = () => {
-    //const [token] = useContext(TokenContext);
+    const [token] = useContext(TokenContext);
     const [showForm, setShowForm] = useState(false);
-    const [form, setForm] = useState({ name: "", number: "", expiration: "", company: "VISA", code: "" });
+    const [cards, setCards] = useState(undefined);
     const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState({ name: "", number: "", expiration: "", code: "" });
 
-    const deleteCard = () => { };
+    useEffect(() => {
+        getCards();
+    }, [setCards]);
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    const getCards = async () => {
+        try {
+            const res = await axios.get(`${BASE_URL}/cards`, config);
+            setCards(res.data);
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    };
+
+    const showServerError = err => {
+        const errors = err.map(e => {
+            if (e === '"number" length must be at least 16 characters long') {
+                return ("Insira apenas os 16 números do cartão");
+            } else if (e === '"expiration" length must be at least 5 characters long') {
+                return ("A data de vencimento deve seguir o formanto mm/aa");
+            } else {
+                return ("O código de segurança é formado por três dígitos");
+            }
+        });
+
+        return errors;
+    };
+
+    const validateCard = (name, code, date) => {
+        const numberRegex = /[0-9]/;
+        const lettersRegex = /[A-Za-z]/;
+
+        if (numberRegex.test(name)) {
+            alert("O nome deve conter apenas letras!");
+            return;
+        }
+
+        if (lettersRegex.test(code)) {
+            alert("O código de segurança contém 3 números!");
+            return;
+        }
+
+        if (lettersRegex.test(date)) {
+            alert("A data de vencimento não pode conter letras")
+        }
+
+        return true;
+    };
+
+    const clearForm = () => {
+        setForm({ name: "", number: "", expiration: "", code: "" });
+    };
+
+    const addCard = async e => {
+        e.preventDefault();
+
+        if (validateCard(form.name, form.code, form.expiration)) {
+            const validForm = {
+                ...form,
+                name: form.name.toUpperCase()
+            };
+
+            try {
+                await axios.post(`${BASE_URL}/cards`, validForm, config);
+                clearForm();
+                getCards();
+            } catch (err) {
+                alert(showServerError(err.response.data.errors));
+            }
+        }
+    };
+
+    const deleteCard = async id => {
+        const confirmed = window.confirm("Você tem certeza que deseja excluir esse cartão?");
+
+        if (confirmed) {
+            try {
+                await axios.delete(`${BASE_URL}/cards/${id}`, config);
+            } catch (err) {
+                alert(err.response.data.message);
+            }
+        }
+
+        getCards();
+    };
 
     const ListofCards = (card) => {
-        const { name, number, expiration, company } = card;
+        const { name, number, expiration, company, _id } = card;
         return (
             <CardListItem>
                 {company}
                 {number}
                 {name}
                 <p>validade: {expiration}</p>
-                <button>
+                <button onClick={e => deleteCard(_id)}>
                     <img
-                        onClick={deleteCard}
                         alt="ícone de deletar"
                         src={close}
                     />
@@ -72,10 +143,15 @@ const CardsPage = () => {
             <CardsContainer>
                 <CardsList>
                     <p>Meus cartões de crédtio</p>
-                    {cards.map(c => <ListofCards
-                        key={c._id}
-                        {...c}
-                    />)}
+                    {!cards
+                        ?
+                        <p>loading</p>
+                        :
+                        cards.map(c => <ListofCards
+                            key={c._id}
+                            {...c}
+                        />)
+                    }
                 </CardsList>
                 <CardFormContainer>
                     <p>Adicione um novo cartão</p>
@@ -110,7 +186,7 @@ const CardsPage = () => {
                                 disabled={loading}
                                 required
                             />
-                            <TextLabel htmlFor="expiration">Data de vencimento</TextLabel>
+                            <TextLabel htmlFor="expiration">Data de vencimento (mm/aa)</TextLabel>
                             <TextInput
                                 type="text"
                                 id="expiration"
@@ -132,6 +208,7 @@ const CardsPage = () => {
                                 disabled={loading}
                                 required
                             />
+                            <button onClick={e => addCard(e)}>Cadastrar</button>
                         </CardForm>
                         :
                         ""

@@ -3,12 +3,17 @@ import CartItem from "../components/CartItem";
 import CartContext from "../contexts/CartContext";
 
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function CartPage() {
     const [cart] = useContext(CartContext);
-    const [shipping, setShipping] = useState("a definir");
-    const [zipCode, setZipCode] = useState("");
+    const [shipping, setShipping] = useState(
+        localStorage.getItem("zipCode") ? "350" : "a definir"
+    );
+    const [zipCode, setZipCode] = useState(
+        localStorage.getItem("zipCode") || ""
+    );
 
     function calculateShipping(e) {
         e.preventDefault();
@@ -16,6 +21,7 @@ export default function CartPage() {
         if (zipCode.length < 9) {
             setShipping("a definir");
         } else {
+            localStorage.setItem("zipCode", zipCode);
             setShipping("350");
         }
     }
@@ -24,6 +30,14 @@ export default function CartPage() {
         let subtotal = 0;
         cart.forEach(item => subtotal += Number(item.sumPrice));
         return subtotal;
+    }
+
+    function calculateTotal() {
+        if (isNaN(Number(shipping))) {
+            return "a definir";
+        }
+
+        return Number(calculateSubtotal()) + Number(shipping);
     }
 
     function handleCart() {
@@ -96,13 +110,15 @@ export default function CartPage() {
                         </tr>
                         <tr>
                             <th>Total</th>
-                            <th>{isNaN(shipping) ? "a definir" : Number(calculateSubtotal()) + Number(shipping)}</th>
+                            <th>{calculateTotal()}</th>
                         </tr>
                     </tbody>
                 </table>
 
                 <button>Finalizar pedido</button>
-                <button>Continuar comprando</button>
+                <Link to={"/produtos"}>
+                    <button>Continuar comprando</button>
+                </Link>
             </PurchasePreviousInfo>
         </CartContainer>
     );

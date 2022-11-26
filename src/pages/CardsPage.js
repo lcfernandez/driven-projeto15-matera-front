@@ -69,6 +69,10 @@ const CardsPage = () => {
         return true;
     };
 
+    const clearForm = () => {
+        setForm({ name: "", number: "", expiration: "", code: "" });
+    };
+
     const addCard = async e => {
         e.preventDefault();
 
@@ -80,6 +84,7 @@ const CardsPage = () => {
 
             try {
                 await axios.post(`${BASE_URL}/cards`, validForm, config);
+                clearForm();
                 getCards();
             } catch (err) {
                 alert(showServerError(err.response.data.errors));

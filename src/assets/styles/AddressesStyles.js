@@ -6,21 +6,27 @@ export const AddressesList = styled.ul``;
 
 export const AddressListItem = styled.li`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     width: 570px;
-    height: 70px;
+    height: 90px;
     background-color: lightgray;
     padding: 15px 20px;
     margin-bottom: 20px;
     button {
         border: none;
         background-color: transparent;
+        margin-right: 5px;
     }
-    img {
-        width: 18px;
-        height: 18px;
-    }
+`;
+
+export const DeleteImg = styled.img`
+    width: 18px;
+    height: 18px;
+`;
+
+export const EditImg = styled.img`
+    width: 20px;
+    height: 20px;
 `;
 
 export const AddressFormContainer = styled.div`

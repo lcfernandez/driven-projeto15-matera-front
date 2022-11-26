@@ -2,8 +2,8 @@ import { AccountContainer } from "../assets/styles/AccountStyle";
 import { AccountMenu } from "../components/AccountMenu";
 import close from "../assets/images/close-outline.png";
 import open from "../assets/images/add-circle-outline.png";
-import edit from "../assets/images/adit-outline.png";
-import { AddressesContainer, AddressesList, AddressListItem, AddressFormContainer, AddressForm, TextLabel, TextInput } from "../assets/styles/AddressesStyles";
+import edit from "../assets/images/edit-outline.png";
+import { AddressesContainer, AddressesList, AddressListItem, AddressFormContainer, AddressForm, TextLabel, TextInput, EditImg, DeleteImg } from "../assets/styles/AddressesStyles";
 import { useContext, useEffect, useState } from "react";
 import TokenContext from "../contexts/TokenContext";
 import { BASE_URL } from "../constants/url";
@@ -102,12 +102,20 @@ const AddressesPage = () => {
                     <p>{`${district} - ${city} - ${estate}`}</p>
                     <p>{`${cep}`}</p>
                 </div>
-                <button>
-                    <img
-                        alt="ícone de deletar"
-                        src={close}
-                    />
-                </button>
+                <div>
+                    <button>
+                        <DeleteImg
+                            alt="ícone de deletar"
+                            src={close}
+                        />
+                    </button>
+                    <button>
+                        <EditImg
+                            alt="ícone de editar"
+                            src={edit}
+                        />
+                    </button>
+                </div>
             </AddressListItem>
         );
     };

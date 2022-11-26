@@ -2,12 +2,18 @@ import CartItem from "../components/CartItem";
 
 import CartContext from "../contexts/CartContext";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 
 export default function CartPage() {
-    const [cart, setCart] = useContext(CartContext);
+    const [cart] = useContext(CartContext);
     const [zipCode, setZipCode] = useState("");
+
+    function calculateSubtotal() {
+        let subtotal = 0;
+        cart.forEach(item => subtotal += Number(item.sumPrice));
+        return subtotal;
+    }
 
     function handleCart() {
         return (
@@ -75,7 +81,7 @@ export default function CartPage() {
                     <tbody>
                         <tr>
                             <th>Subtotal</th>
-                            <th>Subtotal</th>
+                            <th>{calculateSubtotal()}</th>
                         </tr>
                         <tr>
                             <th>Frete</th>

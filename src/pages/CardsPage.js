@@ -25,7 +25,6 @@ const CardsPage = () => {
         }
     };
 
-
     const getCards = async () => {
         try {
             const res = await axios.get(`${BASE_URL}/cards`, config);

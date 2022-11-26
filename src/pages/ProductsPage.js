@@ -27,7 +27,7 @@ export const ProductsPage = () => {
         }
     };
 
-    const ListOfProducts = ({ name, price, image }) => {
+    const ListOfProducts = ({ id, name, price, image }) => {
         return (
             <ListItem>
                 <img
@@ -42,7 +42,12 @@ export const ProductsPage = () => {
 
                     <button onClick={
                         () => {
-                            setCart([...cart, { name, price }]);
+                            const addedItem = cart.find(item => item.id === id);
+                            if (addedItem) {
+                                addedItem.qtd += 1;
+                            } else {
+                                setCart([...cart, { id, image, name, qtd: 1, price }]);
+                            }
                             navigate("/carrinho");
                         }
                     }>

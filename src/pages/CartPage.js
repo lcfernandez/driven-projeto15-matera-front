@@ -7,21 +7,19 @@ import styled from "styled-components";
 
 export default function CartPage() {
     const [cart, setCart] = useContext(CartContext);
-    const [remove, setRemove] = useState(false);
     const [zipCode, setZipCode] = useState("");
 
     function handleCart() {
         return (
             cart.map((item, index) =>
                 <CartItem
-                    index={index}
                     image={item.image}
+                    index={index}
                     key={index}
                     name={item.name}
                     price={item.price}
                     qtd={item.qtd}
-                    remove={remove}
-                    setRemove={setRemove}
+                    sumPrice={item.sumPrice}
                 />
             )
         );
@@ -30,10 +28,6 @@ export default function CartPage() {
     function postOptions(e) {
         e.preventDefault();
     }
-
-    useEffect(() => {
-        setCart(cart);
-    }, [cart]);
 
     if (cart.length === 0) {
         return "O seu carrinho está vazio.";

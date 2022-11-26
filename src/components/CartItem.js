@@ -2,18 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../constants/url";
 import CartContext from "../contexts/CartContext";
 
-export default function CartItem({ index, image, name, price, qtd, remove, setRemove }) {
-    const [cart] = useContext(CartContext);
-    const [sumPrice, setSumPrice] = useState(undefined);
-    const [varQtd, setVarQtd] = useState(qtd);
-
-    useEffect(() => {
-        setVarQtd(qtd);
-    }, [remove]);
-
-    useEffect(() => {
-        setSumPrice(varQtd * Number(price));
-    }, [varQtd, remove]);
+export default function CartItem({ index, image, name, price, qtd, sumPrice }) {
+    const [cart, setCart] = useContext(CartContext);
 
     return (
         <tr>
@@ -30,18 +20,20 @@ export default function CartItem({ index, image, name, price, qtd, remove, setRe
             <td>
                 <div>
                     <button onClick={() => {
-                        cart[index].qtd++;
-                        setVarQtd(varQtd + 1);
+                        const cartUpdate = [...cart];
+                        cartUpdate[index].sumPrice = ++cartUpdate[index].qtd * Number(price);
+                        setCart(cartUpdate);
                     }}>
                         +
                     </button>
 
-                    {varQtd}
+                    {qtd}
 
                     <button onClick={() => {
-                        if (varQtd > 1) {
-                            cart[index].qtd--;
-                            setVarQtd(varQtd - 1);
+                        if (qtd > 1) {
+                            const cartUpdate = [...cart];
+                            cartUpdate[index].sumPrice = --cartUpdate[index].qtd * Number(price);
+                            setCart(cartUpdate);
                         }
                     }}>
                         -
@@ -49,8 +41,7 @@ export default function CartItem({ index, image, name, price, qtd, remove, setRe
                 </div>
 
                 <button onClick={() => {
-                    cart.splice(index, 1);
-                    setRemove(!remove);
+                    setCart(cart.filter((_, itemIndex) => itemIndex !== index));
                 }}>
                     Remover
                 </button>

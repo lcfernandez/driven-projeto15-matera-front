@@ -42,12 +42,16 @@ export const ProductsPage = () => {
 
                     <button onClick={
                         () => {
-                            const addedItem = cart.find(item => item.id === id);
-                            if (addedItem) {
-                                addedItem.qtd += 1;
+                            const itemIndex = cart.findIndex(item => item.id === id);
+
+                            if (itemIndex > -1) {
+                                const cartUpdate = [...cart];
+                                cartUpdate[itemIndex].sumPrice = ++cartUpdate[itemIndex].qtd * Number(price);
+                                setCart(cartUpdate);
                             } else {
-                                setCart([...cart, { id, image, name, qtd: 1, price }]);
+                                setCart([...cart, { id, image, name, price, qtd: 1, sumPrice: price}]);
                             }
+
                             navigate("/carrinho");
                         }
                     }>

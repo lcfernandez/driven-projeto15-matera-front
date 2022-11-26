@@ -12,7 +12,6 @@ const CardsPage = () => {
     const [token] = useContext(TokenContext);
     const [showForm, setShowForm] = useState(false);
     const [cards, setCards] = useState(undefined);
-    const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ name: "", number: "", expiration: "", code: "" });
 
     useEffect(() => {
@@ -180,7 +179,6 @@ const CardsPage = () => {
                                 value={form.number}
                                 onChange={handleForm}
                                 placeholder="Digite o número"
-                                disabled={loading}
                                 required
                             />
                             <TextLabel htmlFor="name">Nome do titular</TextLabel>
@@ -191,7 +189,6 @@ const CardsPage = () => {
                                 value={form.name}
                                 onChange={handleForm}
                                 placeholder="Digite o nome"
-                                disabled={loading}
                                 required
                             />
                             <TextLabel htmlFor="expiration">Data de vencimento (mm/aa)</TextLabel>
@@ -202,7 +199,6 @@ const CardsPage = () => {
                                 value={form.expiration}
                                 onChange={handleForm}
                                 placeholder="Digite a data de vencimento"
-                                disabled={loading}
                                 required
                             />
                             <TextLabel htmlFor="code">Código de segurança</TextLabel>
@@ -213,7 +209,6 @@ const CardsPage = () => {
                                 value={form.code}
                                 onChange={handleForm}
                                 placeholder="Digite o código de segurança"
-                                disabled={loading}
                                 required
                             />
                             <button onClick={e => addCard(e)}>Cadastrar</button>

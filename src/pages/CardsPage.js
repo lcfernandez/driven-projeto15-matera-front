@@ -48,14 +48,42 @@ const CardsPage = () => {
         return errors;
     };
 
+    const validateCard = (name, code, date) => {
+        const numberRegex = /[0-9]/;
+        const lettersRegex = /[A-Za-z]/;
+
+        if (numberRegex.test(name)) {
+            alert("O nome deve conter apenas letras!");
+            return;
+        }
+
+        if (lettersRegex.test(code)) {
+            alert("O código de segurança contém 3 números!");
+            return;
+        }
+
+        if (lettersRegex.test(date)) {
+            alert("A data de vencimento não pode conter letras")
+        }
+
+        return true;
+    };
+
     const addCard = async e => {
         e.preventDefault();
 
-        try {
-            await axios.post(`${BASE_URL}/cards`, validForm, config);
-            getCards();
-        } catch (err) {
-            alert(showServerError(err.response.data.errors));
+        if (validateCard(form.name, form.code, form.expiration)) {
+            const validForm = {
+                ...form,
+                name: form.name.toUpperCase()
+            };
+
+            try {
+                await axios.post(`${BASE_URL}/cards`, validForm, config);
+                getCards();
+            } catch (err) {
+                alert(showServerError(err.response.data.errors));
+            }
         }
     };
 

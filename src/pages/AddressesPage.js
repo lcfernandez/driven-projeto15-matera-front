@@ -2,40 +2,36 @@ import { AccountContainer } from "../assets/styles/AccountStyle";
 import { AccountMenu } from "../components/AccountMenu";
 import close from "../assets/images/close-outline.png";
 import { AddressesContainer, AddressesList, AddressListItem } from "../assets/styles/AddressesStyles";
-
-const addresses = [
-    {
-        _id: "1",
-        firstName: "Bruna",
-        lastName: "De Tal",
-        cep: "07890765",
-        address: "Rua do Sol",
-        number: "100",
-        complement: "apartamento 1",
-        district: "Vila das Flores",
-        city: "cidade",
-        estate: "Sp",
-        phone: "(11)987651423"
-    },
-    {
-        _id: "2",
-        firstName: "Afonso",
-        lastName: "Silva",
-        cep: "07890765",
-        address: "Rua da Lua",
-        number: "50",
-        complement: "apartamento 25",
-        district: "Vila das Árvores",
-        city: "cidade",
-        estate: "MG",
-        phone: "(51)987651423"
-    }
-];
+import { useContext, useEffect, useState } from "react";
+import TokenContext from "../contexts/TokenContext";
+import { BASE_URL } from "../constants/url";
+import axios from "axios";
 
 const AddressesPage = () => {
+    const [addresses, setAddresses] = useState(undefined);
+    const [token] = useContext(TokenContext);
 
-    const ListOfAddresses = (x) => {
-        const { firstName, lastName, address, cep, number, complement, district, city, estate } = x;
+    useEffect(() => {
+        getAddresses();
+    }, []);
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    const getAddresses = async () => {
+        try {
+            const res = await axios.get(`${BASE_URL}/addresses`, config);
+            setAddresses(res.data);
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    };
+
+    const ListOfAddresses = (list) => {
+        const { firstName, lastName, address, cep, number, complement, district, city, estate } = list;
         return (
             <AddressListItem>
                 <div>

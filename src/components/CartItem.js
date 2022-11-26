@@ -24,26 +24,38 @@ export default function CartItem({ index, image, name, price, qtd, remove, setRe
                 />
                 {name}
             </td>
+
             <td>{price}</td>
+
             <td>
                 <div>
                     <button onClick={() => {
                         cart[index].qtd++;
                         setVarQtd(varQtd + 1);
-                    }}>+</button>
+                    }}>
+                        +
+                    </button>
+
                     {varQtd}
+
                     <button onClick={() => {
                         if (varQtd > 1) {
                             cart[index].qtd--;
                             setVarQtd(varQtd - 1);
                         }
-                    }}>-</button>
+                    }}>
+                        -
+                    </button>
                 </div>
+
                 <button onClick={() => {
                     cart.splice(index, 1);
                     setRemove(!remove);
-                }}>Remover</button>
+                }}>
+                    Remover
+                </button>
             </td>
+
             <td>{sumPrice}</td>
         </tr>
     );

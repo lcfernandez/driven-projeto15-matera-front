@@ -2,11 +2,33 @@ import CartItem from "../components/CartItem";
 
 import CartContext from "../contexts/CartContext";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 export default function CartPage() {
     const [cart, setCart] = useContext(CartContext);
+    const [remove, setRemove] = useState(false);
+
+    function handleCart() {
+        return (
+            cart.map((item, index) =>
+                <CartItem
+                    index={index}
+                    image={item.image}
+                    key={index}
+                    name={item.name}
+                    price={item.price}
+                    qtd={item.qtd}
+                    remove={remove}
+                    setRemove={setRemove}
+                />
+            )
+        );
+    }
+
+    useEffect(() => {
+        setCart(cart);
+    }, [cart]);
 
     return (
         <CartContainer>
@@ -22,16 +44,7 @@ export default function CartPage() {
                     </tr>
                 </thead>
                 <tbody>    
-                    {cart.map((item, index) =>
-                        <CartItem
-                            id={item.id}
-                            image={item.image}
-                            key={index}
-                            name={item.name}
-                            price={item.price}
-                            qtd={item.qtd}
-                        />
-                    )}
+                    {handleCart()}
                 </tbody>
             </table>
 

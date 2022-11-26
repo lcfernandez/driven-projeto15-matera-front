@@ -2,6 +2,7 @@ import { AccountContainer } from "../assets/styles/AccountStyle";
 import { AccountMenu } from "../components/AccountMenu";
 import close from "../assets/images/close-outline.png";
 import open from "../assets/images/add-circle-outline.png";
+import edit from "../assets/images/adit-outline.png";
 import { AddressesContainer, AddressesList, AddressListItem, AddressFormContainer, AddressForm, TextLabel, TextInput } from "../assets/styles/AddressesStyles";
 import { useContext, useEffect, useState } from "react";
 import TokenContext from "../contexts/TokenContext";

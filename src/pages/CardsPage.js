@@ -34,6 +34,17 @@ const CardsPage = () => {
         }
     };
 
+    const addCard = async e => {
+        e.preventDefault();
+
+        try {
+            await axios.post(`${BASE_URL}/cards`, validForm, config);
+            getCards();
+        } catch (err) {
+            alert(showServerError(err.response.data.errors));
+        }
+    };
+
     const deleteCard = async id => {
         const confirmed = window.confirm("Você tem certeza que deseja excluir esse cartão?");
 
@@ -150,6 +161,7 @@ const CardsPage = () => {
                                 disabled={loading}
                                 required
                             />
+                            <button onClick={e => addCard(e)}>Cadastrar</button>
                         </CardForm>
                         :
                         ""

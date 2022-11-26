@@ -34,6 +34,20 @@ const CardsPage = () => {
         }
     };
 
+    const showServerError = err => {
+        const errors = err.map(e => {
+            if (e === '"number" length must be at least 16 characters long') {
+                return ("Insira apenas os 16 números do cartão");
+            } else if (e === '"expiration" length must be at least 5 characters long') {
+                return ("A data de vencimento deve seguir o formanto mm/aa");
+            } else {
+                return ("O código de segurança é formado por três dígitos");
+            }
+        });
+
+        return errors;
+    };
+
     const addCard = async e => {
         e.preventDefault();
 

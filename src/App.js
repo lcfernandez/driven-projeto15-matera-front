@@ -10,7 +10,7 @@ import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import AccountPage from "./pages/AccountPage";
-import AdressesPage from "./pages/AdressesPage";
+import AddressesPage from "./pages/AddressesPage";
 import CardsPage from "./pages/CardsPage";
 import PurchasesPage from "./pages/PurchasesPage";
 import ProductsPage from "./pages/ProductsPage";
@@ -55,7 +55,7 @@ function App() {
                         <Route path="/conta" element={<AccountPage />} />
                         <Route path="/conta/pedidos" element={<PurchasesPage />} />
                         <Route path="/conta/cartoes" element={<CardsPage />} />
-                        <Route path="/conta/enderecos" element={<AdressesPage />} />
+                        <Route path="/conta/enderecos" element={<AddressesPage />} />
                         <Route path="/produtos" element={<ProductsPage />} />
                         <Route path="/produtos/cadeiras" element={<ChairsPage />} />
                         <Route path="/produtos/camas" element={<BedsPage />} />

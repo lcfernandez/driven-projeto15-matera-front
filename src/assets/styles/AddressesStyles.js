@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const AdressesContainer = styled.div`
+export const AddressesContainer = styled.div`
 `;
-export const AdressesList = styled.ul``;
+export const AddressesList = styled.ul``;
 
-export const AdressListItem = styled.li`
+export const AddressListItem = styled.li`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,13 +23,13 @@ export const AdressListItem = styled.li`
     }
 `;
 
-export const AdressFormContainer = styled.div`
+export const AddressFormContainer = styled.div`
     img {
         width: 26px;
     }
 `;
 
-export const AdressForm = styled.form`
+export const AddressForm = styled.form`
     display: flex;
     flex-direction: column;
 `;

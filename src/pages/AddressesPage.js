@@ -1,15 +1,15 @@
 import { AccountContainer } from "../assets/styles/AccountStyle";
 import { AccountMenu } from "../components/AccountMenu";
 import close from "../assets/images/close-outline.png";
-import { AdressesContainer, AdressesList, AdressListItem } from "../assets/styles/AdressesStyles";
+import { AddressesContainer, AddressesList, AddressListItem } from "../assets/styles/AddressesStyles";
 
-const adresses = [
+const addresses = [
     {
         _id: "1",
         firstName: "Bruna",
         lastName: "De Tal",
         cep: "07890765",
-        adress: "Rua do Sol",
+        address: "Rua do Sol",
         number: "100",
         complement: "apartamento 1",
         district: "Vila das Flores",
@@ -22,7 +22,7 @@ const adresses = [
         firstName: "Afonso",
         lastName: "Silva",
         cep: "07890765",
-        adress: "Rua da Lua",
+        address: "Rua da Lua",
         number: "50",
         complement: "apartamento 25",
         district: "Vila das Árvores",
@@ -32,15 +32,15 @@ const adresses = [
     }
 ];
 
-const AdressesPage = () => {
+const AddressesPage = () => {
 
-    const ListOfAdresses = (x) => {
-        const { firstName, lastName, adress, cep, number, complement, district, city, estate } = x;
+    const ListOfAddresses = (x) => {
+        const { firstName, lastName, address, cep, number, complement, district, city, estate } = x;
         return (
-            <AdressListItem>
+            <AddressListItem>
                 <div>
                     <p>{`${firstName} ${lastName}`}</p>
-                    <p>{`${adress}, ${number} - ${complement}`}</p>
+                    <p>{`${address}, ${number} - ${complement}`}</p>
                     <p>{`${district} - ${city} - ${estate}`}</p>
                     <p>{`${cep}`}</p>
                 </div>
@@ -50,28 +50,28 @@ const AdressesPage = () => {
                         src={close}
                     />
                 </button>
-            </AdressListItem>
+            </AddressListItem>
         );
     };
 
     return (
         <AccountContainer>
             <AccountMenu />
-            <AdressesContainer>
-                <AdressesList>
-                    {!adresses
+            <AddressesContainer>
+                <AddressesList>
+                    {!addresses
                         ?
                         <p>loading</p>
                         :
-                        adresses.map(c => <ListOfAdresses
+                        addresses.map(c => <ListOfAddresses
                             key={c._id}
                             {...c}
                         />)
                     }
-                </AdressesList>
-            </AdressesContainer>
+                </AddressesList>
+            </AddressesContainer>
         </AccountContainer>
     );
 };
 
-export default AdressesPage;
+export default AddressesPage;

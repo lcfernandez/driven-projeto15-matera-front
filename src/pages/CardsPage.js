@@ -40,10 +40,12 @@ const CardsPage = () => {
         if (confirmed) {
             try {
                 await axios.delete(`${BASE_URL}/cards/${id}`, config);
-            } catch(err) {
+            } catch (err) {
                 alert(err.response.data.message);
             }
         }
+
+        getCards();
     };
 
     const ListofCards = (card) => {

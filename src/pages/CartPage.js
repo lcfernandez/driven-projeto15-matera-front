@@ -7,7 +7,18 @@ import styled from "styled-components";
 
 export default function CartPage() {
     const [cart] = useContext(CartContext);
+    const [shipping, setShipping] = useState("a definir");
     const [zipCode, setZipCode] = useState("");
+
+    function calculateShipping(e) {
+        e.preventDefault();
+
+        if (zipCode.length < 9) {
+            setShipping("a definir");
+        } else {
+            setShipping("350");
+        }
+    }
 
     function calculateSubtotal() {
         let subtotal = 0;
@@ -29,10 +40,6 @@ export default function CartPage() {
                 />
             )
         );
-    }
-
-    function postOptions(e) {
-        e.preventDefault();
     }
 
     if (cart.length === 0) {
@@ -58,7 +65,7 @@ export default function CartPage() {
                     </tbody>
                 </table>
 
-                <form onSubmit={e => postOptions(e)}>
+                <form onSubmit={e => calculateShipping(e)}>
                     Calcular frete e prazo
 
                     <input
@@ -85,11 +92,11 @@ export default function CartPage() {
                         </tr>
                         <tr>
                             <th>Frete</th>
-                            <th>Frete</th>
+                            <th>{shipping}</th>
                         </tr>
                         <tr>
                             <th>Total</th>
-                            <th>Total</th>
+                            <th>{isNaN(shipping) ? "a definir" : Number(calculateSubtotal()) + Number(shipping)}</th>
                         </tr>
                     </tbody>
                 </table>
@@ -107,6 +114,12 @@ const CartContainer = styled.div`
 
     img {
         width: 100px;
+    }
+
+    tr {
+        th:nth-child(2) {
+            text-align: right;
+        }
     }
 
     tr:nth-child(1) {

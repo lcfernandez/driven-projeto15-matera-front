@@ -15,10 +15,9 @@ const CardsPage = () => {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ name: "", number: "", expiration: "", code: "" });
 
-
     useEffect(() => {
         getCards();
-    });
+    }, [setCards]);
 
     const config = {
         headers: {

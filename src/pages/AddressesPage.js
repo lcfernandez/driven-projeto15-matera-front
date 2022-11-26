@@ -8,20 +8,19 @@ import { BASE_URL } from "../constants/url";
 import axios from "axios";
 
 const AddressesPage = () => {
-    const [addresses, setAddresses] = useState(undefined);
+    const [addresses , setAddresses] = useState(undefined);
     const [token] = useContext(TokenContext);
 
     useEffect(() => {
-        getAddresses();
-    }, []);
+        getAddresses(token);
+    }, [setAddresses, token]);
 
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    };
-
-    const getAddresses = async () => {
+    const getAddresses = async (theToken) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${theToken}`
+            }
+        };
         try {
             const res = await axios.get(`${BASE_URL}/addresses`, config);
             setAddresses(res.data);

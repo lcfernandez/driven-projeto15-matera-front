@@ -16,8 +16,8 @@ const CardsPage = () => {
     const [form, setForm] = useState({ name: "", number: "", expiration: "", code: "" });
 
     useEffect(() => {
-        getCards();
-    }, [setCards]);
+        getCards(token);
+    }, [setCards, token]);
 
     const config = {
         headers: {
@@ -25,13 +25,21 @@ const CardsPage = () => {
         }
     };
 
-    const getCards = async () => {
+    const getCards = async (theToken) => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${theToken}`
+            }
+        };
+
         try {
             const res = await axios.get(`${BASE_URL}/cards`, config);
             setCards(res.data);
         } catch (err) {
             alert(err.response.data.message);
         }
+
+
     };
 
     const showServerError = err => {

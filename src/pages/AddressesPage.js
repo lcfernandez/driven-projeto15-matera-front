@@ -32,6 +32,49 @@ const AddressesPage = () => {
         }
     };
 
+    const validateAddress = (form) => {
+        const {cep, number, estate, phone} = form;
+        const regex = /[A-Za-z]/;
+
+        if (phone.includes("-") || regex.test(phone)) {
+            alert("O telefone deve estar no formato do exemplo!");
+            return;
+        }
+
+        if (regex.test(cep)) {
+            alert("O cep deve conter apenas numeros!");
+            return;
+        }
+
+        if (regex.test(number)) {
+            alert("Não pode haver letras no número!");
+            return;
+        }
+
+        if (estate.lenght > 2) {
+            alert("O estado só deve conter duas letras");
+            return;
+        }
+
+    };
+
+    const addAddress = () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        if (validateAddress(form)) {
+            const validForm = {
+                ...form,
+                phone: form.number.replace(" ", "")
+            };
+
+
+        }
+    };
+
     const ListOfAddresses = (list) => {
         const { firstName, lastName, address, cep, number, complement, district, city, estate } = list;
         return (

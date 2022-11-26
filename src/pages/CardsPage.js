@@ -126,7 +126,7 @@ const CardsPage = () => {
                                 disabled={loading}
                                 required
                             />
-                            <TextLabel htmlFor="expiration">Data de vencimento</TextLabel>
+                            <TextLabel htmlFor="expiration">Data de vencimento (mm/aa)</TextLabel>
                             <TextInput
                                 type="text"
                                 id="expiration"

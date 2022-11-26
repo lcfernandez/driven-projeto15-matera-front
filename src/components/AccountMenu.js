@@ -29,7 +29,7 @@ export const AccountMenu = () => {
                     </AccountLinks>
                 </li>
                 <li>
-                    <AccountLinks>
+                    <AccountLinks to="/conta/enderecos">
                         <img
                             alt="ícone de endereço"
                             src={home}

@@ -3,6 +3,7 @@ import GlobalStyle from "./assets/styles/GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
+import CartContext from "./contexts/CartContext";
 import TokenContext from "./contexts/TokenContext";
 import UsernameContext from "./contexts/UsernameContext";
 
@@ -17,12 +18,16 @@ import BedsPage from "./pages/BedsPage";
 import ChairsPage from "./pages/ChairsPage";
 import SofasPage from "./pages/SofasPage";
 import TablesPage from "./pages/TablesPage";
+import CartPage from "./pages/CartPage";
 
 import { AppContext } from "./components/context";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
+    const [cart, setCart] = useState(
+        JSON.parse(localStorage.getItem("cart")) || []
+    );
     const [products, setProducts] = useState(undefined);
     /* const [token, setToken] = useState(
         localStorage.getItem("token") || undefined
@@ -43,6 +48,7 @@ function App() {
             <BrowserRouter>
                 <GlobalStyle />
 
+                <CartContext.Provider value={[cart, setCart]}>
                 <TokenContext.Provider value={[token, setToken]}>
                 <UsernameContext.Provider value={[username, setUsername]}>
                     <Header />
@@ -59,9 +65,11 @@ function App() {
                         <Route path="/produtos/camas" element={<BedsPage />} />
                         <Route path="/produtos/sofas" element={<SofasPage />} />
                         <Route path="/produtos/mesas" element={<TablesPage />} />
+                        <Route path="/carrinho" element={<CartPage />} />
                     </Routes>
                 </UsernameContext.Provider>
                 </TokenContext.Provider>
+                </CartContext.Provider>
 
                 <Footer />
             </BrowserRouter>

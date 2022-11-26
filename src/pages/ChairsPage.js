@@ -5,10 +5,12 @@ import { ProductsMenu } from "../components/ProductsMenu";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../components/context";
 import { useNavigate } from "react-router-dom";
+import CartContext from "../contexts/CartContext";
 
 export const ChairsPage = () => {
     const { products } = useContext(AppContext);
     const [chairs, setChairs] = useState(undefined);
+    const [cart, setCart] = useContext(CartContext);
 
     const navigate = useNavigate();
 
@@ -21,7 +23,7 @@ export const ChairsPage = () => {
         setChairs(chairs);
     };
 
-    const ListOfProducts = ({ name, price, image }) => {
+    const ListOfProducts = ({ id, name, price, image }) => {
         return (
             <ListItem>
                 <img
@@ -34,7 +36,21 @@ export const ChairsPage = () => {
                         <p>{price}</p>
                     </span>
 
-                    <button onClick={() => navigate("/carrinho")}>
+                    <button onClick={
+                        () => {
+                            const itemIndex = cart.findIndex(item => item.id === id);
+
+                            if (itemIndex > -1) {
+                                const cartUpdate = [...cart];
+                                cartUpdate[itemIndex].sumPrice = ++cartUpdate[itemIndex].qtd * Number(price);
+                                setCart(cartUpdate);
+                            } else {
+                                setCart([...cart, { id, image, name, price, qtd: 1, sumPrice: price}]);
+                            }
+
+                            navigate("/carrinho");
+                        }
+                    }>
                         Comprar
                     </button>
                 </div>

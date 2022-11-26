@@ -25,7 +25,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(
+        JSON.parse(localStorage.getItem("cart")) || []
+    );
     const [products, setProducts] = useState(undefined);
     const [token, setToken] = useState(
         localStorage.getItem("token") || undefined

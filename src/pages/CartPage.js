@@ -2,7 +2,7 @@ import CartItem from "../components/CartItem";
 
 import CartContext from "../contexts/CartContext";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -14,6 +14,10 @@ export default function CartPage() {
     const [zipCode, setZipCode] = useState(
         localStorage.getItem("zipCode") || ""
     );
+
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart))
+    }, [cart]);
 
     function calculateShipping(e) {
         e.preventDefault();

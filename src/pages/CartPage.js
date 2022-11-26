@@ -1,4 +1,5 @@
-import { BASE_URL } from "../constants/url";
+import CartItem from "../components/CartItem";
+
 import CartContext from "../contexts/CartContext";
 
 import { useContext } from "react";
@@ -22,18 +23,14 @@ export default function CartPage() {
                 </thead>
                 <tbody>    
                     {cart.map((item, index) =>
-                        <tr key={index}>
-                            <td>
-                                <img
-                                    alt="imagem do produto"
-                                    src={`${BASE_URL}${item.image}`}
-                                />
-                                {item.name}
-                            </td>
-                            <td>{item.price}</td>
-                            <td>{item.qtd}</td>
-                            <td>{item.qtd * Number(item.price)}</td>
-                        </tr>
+                        <CartItem
+                            id={item.id}
+                            image={item.image}
+                            key={index}
+                            name={item.name}
+                            price={item.price}
+                            qtd={item.qtd}
+                        />
                     )}
                 </tbody>
             </table>

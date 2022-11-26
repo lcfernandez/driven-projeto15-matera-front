@@ -7,12 +7,15 @@ import { useContext, useEffect, useState } from "react";
 import TokenContext from "../contexts/TokenContext";
 import { BASE_URL } from "../constants/url";
 import axios from "axios";
+import styled from "styled-components";
 
 const AddressesPage = () => {
     const [addresses, setAddresses] = useState(undefined);
     const [showForm, setShowForm] = useState(false);
     const [token] = useContext(TokenContext);
-    const [form, setForm] = useState({ firstName: "", lastName: "", address: "", cep: "", number: "", complement: "", district: "", city: "", estate: "", phone: "" });
+
+    const emptyForm = { firstName: "", lastName: "", address: "", cep: "", number: "", complement: "", district: "", city: "", estate: "", phone: "" };
+    const [form, setForm] = useState(emptyForm);
 
     useEffect(() => {
         getAddresses(token);
@@ -33,7 +36,7 @@ const AddressesPage = () => {
     };
 
     const validateAddress = (form) => {
-        const {cep, number, estate, phone} = form;
+        const { cep, number, estate, phone } = form;
         const regex = /[A-Za-z]/;
 
         if (phone.includes("-") || regex.test(phone)) {
@@ -51,14 +54,21 @@ const AddressesPage = () => {
             return;
         }
 
-        if (estate.lenght > 2) {
+        if (estate.length > 2) {
             alert("O estado só deve conter duas letras");
             return;
         }
 
+        return true;
     };
 
-    const addAddress = () => {
+    const clearForm = () => {
+        setForm(emptyForm);
+    };
+
+    const addAddress = async e => {
+        e.preventDefault();
+
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -68,10 +78,16 @@ const AddressesPage = () => {
         if (validateAddress(form)) {
             const validForm = {
                 ...form,
-                phone: form.number.replace(" ", "")
+                phone: form.phone.replaceAll(" ", "")
             };
 
-
+            try {
+                await axios.post(`${BASE_URL}/addresses`, validForm, config);
+                clearForm();
+                await getAddresses(token);
+            } catch (err) {
+                console.log(err.response.data);
+            }
         }
     };
 
@@ -235,15 +251,20 @@ const AddressesPage = () => {
                                 placeholder="Digite o celular"
                                 required
                             />
-                            <button >Cadastrar</button>
+                            <button onClick={e => addAddress(e)}>Cadastrar</button>
                         </AddressForm>
                         :
                         ""
                     }
                 </AddressFormContainer>
             </AddressesContainer>
+            <Div></Div>
         </AccountContainer>
     );
 };
+
+const Div = styled.div`
+    margin-bottom: 1000px;
+`;
 
 export default AddressesPage;

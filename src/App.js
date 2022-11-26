@@ -29,7 +29,7 @@ function App() {
         localStorage.getItem("token") || undefined
     ); */
 
-    const [token, setToken] = useState("e839563f-266e-40e6-9d9d-2ec4b523b09f");
+    const [token, setToken] = useState("6e5a3664-71d1-43ad-a430-62f1366f154c");
 
     const [username, setUsername] = useState("Laisse");
 

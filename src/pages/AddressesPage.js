@@ -88,7 +88,54 @@ const AddressesPage = () => {
                 clearForm();
                 await getAddresses(token);
             } catch (err) {
-                console.log(err.response.data);
+                alert(err.response.data.message);
+            }
+        }
+    };
+
+    const editForm = async (savedAddress, e) => {
+        e.preventDefault();
+
+        setForm(savedAddress);
+        setShowForm(true);
+        setEditButton(true);
+    };
+
+    const editAddress = async e => {
+        e.preventDefault();
+
+        const confirmed = window.confirm("Você tem certeza que deseja editar esse endereço?");
+
+        const { _id, firstName, lastName, address, cep, number, complement, district, city, estate, phone } = form;
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        const payload = {
+            firstName,
+            lastName,
+            address,
+            cep,
+            number,
+            complement,
+            district,
+            city,
+            estate,
+            phone
+        };
+
+        if (confirmed) {
+            try {
+                await axios.put(`${BASE_URL}/addresses/${_id}`, payload, config);
+                setShowForm(false);
+                setEditButton(false);
+                clearForm();
+                getAddresses(token);
+            } catch (err) {
+                alert(err.response.data.message);
             }
         }
     };

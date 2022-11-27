@@ -152,7 +152,7 @@ const AddressesPage = () => {
         if (confirmed) {
             try {
                 await axios.delete(`${BASE_URL}/addresses/${id}`, config);
-            }catch(err) {
+            } catch (err) {
                 alert(err.response.data.message);
             }
         }
@@ -221,7 +221,7 @@ const AddressesPage = () => {
                     <button onClick={setFormStatus}>
                         <img
                             alt="ícone de adicionar"
-                            src={open}
+                            src={showForm ? close : open}
                         />
                     </button>
                     {showForm

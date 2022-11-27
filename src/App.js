@@ -42,6 +42,12 @@ function App() {
     const [username, setUsername] = useState(
         localStorage.getItem("username") || undefined
     );
+    const [shipping, setShipping] = useState(
+        localStorage.getItem("zipCode") ? "350" : "a definir"
+    );
+    const [zipCode, setZipCode] = useState(
+        localStorage.getItem("zipCode") || ""
+    );
 
     return (
         <AppContext.Provider
@@ -68,8 +74,22 @@ function App() {
                         <Route path="/produtos/camas" element={<BedsPage />} />
                         <Route path="/produtos/sofas" element={<SofasPage />} />
                         <Route path="/produtos/mesas" element={<TablesPage />} />
-                        <Route path="/carrinho" element={<CartPage />} />
-                        <Route path="/pedido" element={<CheckoutPage />} />
+                        <Route path="/carrinho" element={
+                            <CartPage
+                                shipping={shipping}
+                                setShipping={setShipping}
+                                zipCode={zipCode}
+                                setZipCode={setZipCode}
+                            />
+                        }
+                        />
+                        <Route path="/pedido" element={
+                            <CheckoutPage
+                                shipping={shipping}
+                                zipCode={zipCode}
+                            />
+                        }
+                        />
                     </Routes>
                 </UsernameContext.Provider>
                 </TokenContext.Provider>

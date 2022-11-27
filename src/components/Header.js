@@ -22,7 +22,7 @@ export default function Header() {
     return (
         <HeaderContainer>
             <div>
-                Matera
+                <Link to="/">Matera</Link>
             </div>
 
             <div>

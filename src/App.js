@@ -9,6 +9,7 @@ import UsernameContext from "./contexts/UsernameContext";
 
 import HomePage from "./pages/HomePage";
 import AboutUsPage from "./pages/AboutUsPage";
+import ContactUsPage from "./pages/ContactUsPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import AccountPage from "./pages/AccountPage";
@@ -57,6 +58,7 @@ function App() {
 
                     <Routes>
                         <Route path="/" element={<HomePage />} />
+                        <Route path="/contato" element={< ContactUsPage />} />
                         <Route path="/sobre-nos" element={<AboutUsPage />} />
                         <Route path="/cadastro" element={<SignUpPage />} />
                         <Route path="/login" element={<SignInPage />} />

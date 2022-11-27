@@ -34,7 +34,7 @@ export default function Header() {
 
                 -
 
-                Contato
+                <Link to="/contato">Contato</Link>
             </div>
 
             <div>

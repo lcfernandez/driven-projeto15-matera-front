@@ -38,6 +38,8 @@ export default function CheckoutPage() {
                 Pedido
             </div>
 
+            <h1>Produtos</h1>
+
             <table>
                 <tbody>    
                     {cart.map((item, index) =>
@@ -50,23 +52,38 @@ export default function CheckoutPage() {
                     )}
                 </tbody>
             </table>
+
+            <h1>Entrega</h1>
             
-            {addresses.length > 0 ? addresses.map((address, index) =>
+            {addresses.length > 0 ? addresses.map(address =>
                 <button key={address._id}>
-                    <p>{`${address.firstName} ${address.lastName}`}</p>
-                    <p>{`${address.address}, ${address.number} - ${address.complement}`}</p>
-                    <p>{`${address.district} - ${address.city} - ${address.estate}`}</p>
-                    <p>{`${address.cep}`}</p>
-                </button>
-            ) : "Você ainda não tem endereços cadastrados."}
+                        <p>{`${address.firstName} ${address.lastName}`}</p>
+                        <p>{`${address.address}, ${address.number} - ${address.complement}`}</p>
+                        <p>{`${address.district} - ${address.city} - ${address.estate}`}</p>
+                        <p>{`${address.cep}`}</p>
+                    </button>
+                ) : "Você ainda não tem endereços cadastrados."}
+
             <Link to="/conta/enderecos">Cadastrar/editar endereço</Link>
 
-            {cards.length > 0 ? cards.map((card, index) =>
+            <h1>Pagamento</h1>
+
+            {cards.length > 0 ? cards.map(card =>
                 <button key={card._id}>
-                    <p>{`${card.number}`}</p>
-                </button>
-            ) : "Você ainda não tem cartões cadastrados."}
+                        <p>{`${card.number}`}</p>
+                    </button>
+            ) : "Você ainda não tem cartões cadastrados."}         
+
             <Link to="/conta/cartoes">Cadastrar/editar cartões</Link>
+
+            <ul>
+                <li>
+                    <button>Boleto bancário</button>
+                </li>
+                <li>
+                    <button>Pix</button>   
+                </li>
+            </ul>
         </CheckoutPageContainer>
     );
 }

@@ -26,11 +26,7 @@ export default function Header() {
             </div>
 
             <div>
-                <Link to="/produtos">
-                    Produtos
-                </Link>
-
-                -
+                <Link to="/produtos">Produtos</Link> -
 
                 Sobre
 
@@ -40,9 +36,7 @@ export default function Header() {
             </div>
 
             <div>
-                {handleActions()} -
-
-                Carrinho
+                {handleActions()} - <Link to="/carrinho">Carrinho</Link>
             </div>
         </HeaderContainer>
     )

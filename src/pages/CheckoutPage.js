@@ -9,12 +9,24 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export default function CheckoutPage() {
-    const [addresses, setAddresses] = useState([]);
-    const [cards, setCards] = useState([]);
     const [cart] = useContext(CartContext);
     const [token] = useContext(TokenContext);
 
+    const [addresses, setAddresses] = useState([]);
+    const [cards, setCards] = useState([]);
+    const [deliveryAddress, setDeliveryAddress] = useState(
+        JSON.parse(localStorage.getItem("deliveryAddress")) || undefined
+    );
+    const [purchase, setPurchase] = useState(undefined);
+
+    function handleDeliveryAddress(address) {
+        setDeliveryAddress(address);
+        localStorage.setItem("deliveryAddress", JSON.stringify(address));
+    }
+
     useEffect(() => {
+        setPurchase({ products: cart });
+
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -24,21 +36,21 @@ export default function CheckoutPage() {
         axios
             .get(`${BASE_URL}/addresses`, config)
             .then(res => setAddresses(res.data))
-            .catch(err => console.error(err.response.data.message || err.response.data));
+            .catch(err => alert(err.response.data.message));
 
         axios
             .get(`${BASE_URL}/cards`, config)
             .then(res => setCards(res.data))
-            .catch(err => console.error(err.response.data.message || err.response.data));
+            .catch(err => alert(err.response.data.message));
     }, []);
     
     return (
         <CheckoutPageContainer>
-            <div>
+            <div onClick={() => console.log(purchase, deliveryAddress)}>
                 Pedido
             </div>
 
-            <h1>Produtos</h1>
+            <h1>Resumo da compra</h1>
 
             <table>
                 <tbody>    
@@ -51,12 +63,22 @@ export default function CheckoutPage() {
                         </tr>
                     )}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Total</th>
+                        <th></th>
+                        <th>R$ total</th>
+                    </tr>
+                </tfoot>
             </table>
+
+            <h1></h1>
 
             <h1>Entrega</h1>
             
             {addresses.length > 0 ? addresses.map(address =>
-                <button key={address._id}>
+                <button key={address._id} onClick={() => handleDeliveryAddress(address)}>
                         <p>{`${address.firstName} ${address.lastName}`}</p>
                         <p>{`${address.address}, ${address.number} - ${address.complement}`}</p>
                         <p>{`${address.district} - ${address.city} - ${address.estate}`}</p>

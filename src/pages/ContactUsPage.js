@@ -9,10 +9,10 @@ import { useState } from "react";
 
 const ContactUsPage = () => {
     const options = {
-        message:false,
+        message: false,
         faq: false,
         changes: false,
-        chat:false,
+        chat: false,
         whatsapp: false,
         default: true
     };
@@ -25,6 +25,28 @@ const ContactUsPage = () => {
             <ContactTitle />
             <MainContainer>
                 <MenuContainer>
+                    <MenuList>
+                        <li>
+                            <img src={faq} alt="ícone de ajuda" />
+                            <p>FAQ - Perguntas Frequentes</p>
+                        </li>
+                        <li>
+                            <img src={swap} alt="ícone de troca" />
+                            <p>Devoluções</p>
+                        </li>
+                        <li>
+                            <img src={message} alt="ícone de e-mail" />
+                            <p>Mande uma Mensagem</p>
+                        </li>
+                        <li>
+                            <img src={chat} alt="ícone de chat" />
+                            <p>Chat</p>
+                        </li>
+                        <li>
+                            <img src={whatsapp} alt="ícone do whatsapp" />
+                            <p>Whatsapp</p>
+                        </li>
+                    </MenuList>
 
                 </MenuContainer>
                 <DetailsContainer></DetailsContainer>

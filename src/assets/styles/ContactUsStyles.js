@@ -13,6 +13,11 @@ export const MenuContainer = styled.div``;
 export const MenuList = styled.ul`
     img {
         width: 20px;
+        margin-right: 10px;
+    }
+
+    li {
+        display: flex;
     }
 `;
 

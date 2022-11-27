@@ -26,7 +26,9 @@ export default function Header() {
             </div>
 
             <div>
-                Produtos
+                <Link to="/produtos">
+                    Produtos
+                </Link>
 
                 -
 

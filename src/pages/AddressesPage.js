@@ -157,7 +157,7 @@ const AddressesPage = () => {
                             src={close}
                         />
                     </button>
-                    <button>
+                    <button onClick={e => editForm(list, e)}>
                         <EditImg
                             alt="ícone de editar"
                             src={edit}
@@ -190,9 +190,9 @@ const AddressesPage = () => {
                         ?
                         <p>loading</p>
                         :
-                        addresses.map(c => <ListOfAddresses
-                            key={c._id}
-                            {...c}
+                        addresses.map(a => <ListOfAddresses
+                            key={a._id}
+                            {...a}
                         />)
                     }
                 </AddressesList>

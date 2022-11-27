@@ -10,15 +10,18 @@ const ContactUsPage = () => {
         <div className="container">
             <ContactImg />
             <ContactTitle />
-            <ul>
+            <div>
+                <div className="side-menu">
+                <ul>
             <li>
                 <img/>
-                <div>
-                    <h2></h2>
-                    <p></p>
-                </div>
+                <p></p>
             </li>
             </ul>
+                </div>
+                <div className="maininfo"></div>
+            </div>
+
         </div>
     );
 };

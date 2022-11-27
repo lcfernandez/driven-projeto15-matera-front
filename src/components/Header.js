@@ -30,7 +30,7 @@ export default function Header() {
 
                 -
 
-                Sobre
+                <Link to="/sobre-nos">Sobre</Link>
 
                 -
 

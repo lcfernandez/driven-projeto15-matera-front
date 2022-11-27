@@ -1,6 +1,7 @@
 import CartItem from "../components/CartItem";
 
 import CartContext from "../contexts/CartContext";
+import TokenContext from "../contexts/TokenContext";
 
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,6 +9,7 @@ import styled from "styled-components";
 
 export default function CartPage() {
     const [cart] = useContext(CartContext);
+    const [token] = useContext(TokenContext);
     const [shipping, setShipping] = useState(
         localStorage.getItem("zipCode") ? "350" : "a definir"
     );
@@ -119,8 +121,10 @@ export default function CartPage() {
                     </tbody>
                 </table>
 
-                <button>Finalizar pedido</button>
-                <Link to={"/produtos"}>
+                <Link to={token ? "/pedido" : "/login"}>
+                    <button>Finalizar pedido</button>
+                </Link>
+                <Link to="/produtos">
                     <button>Continuar comprando</button>
                 </Link>
             </PurchasePreviousInfo>

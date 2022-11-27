@@ -34,19 +34,8 @@ function App() {
     const [token, setToken] = useState(
         localStorage.getItem("token") || undefined
     );
-
-    /* const [token, setToken] = useState("6e5a3664-71d1-43ad-a430-62f1366f154c");
-
-    const [username, setUsername] = useState("Laisse"); */
-
     const [username, setUsername] = useState(
         localStorage.getItem("username") || undefined
-    );
-    const [shipping, setShipping] = useState(
-        localStorage.getItem("zipCode") ? "350" : "a definir"
-    );
-    const [zipCode, setZipCode] = useState(
-        localStorage.getItem("zipCode") || ""
     );
 
     return (
@@ -74,22 +63,8 @@ function App() {
                         <Route path="/produtos/camas" element={<BedsPage />} />
                         <Route path="/produtos/sofas" element={<SofasPage />} />
                         <Route path="/produtos/mesas" element={<TablesPage />} />
-                        <Route path="/carrinho" element={
-                            <CartPage
-                                shipping={shipping}
-                                setShipping={setShipping}
-                                zipCode={zipCode}
-                                setZipCode={setZipCode}
-                            />
-                        }
-                        />
-                        <Route path="/pedido" element={
-                            <CheckoutPage
-                                shipping={shipping}
-                                zipCode={zipCode}
-                            />
-                        }
-                        />
+                        <Route path="/carrinho" element={<CartPage />} />
+                        <Route path="/pedido" element={<CheckoutPage />} />
                     </Routes>
                 </UsernameContext.Provider>
                 </TokenContext.Provider>

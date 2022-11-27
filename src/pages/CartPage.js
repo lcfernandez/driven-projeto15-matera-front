@@ -7,9 +7,15 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function CartPage({ shipping, setShipping, zipCode, setZipCode }) {
+export default function CartPage() {
     const [cart] = useContext(CartContext);
     const [token] = useContext(TokenContext);
+    const [shipping, setShipping] = useState(
+        localStorage.getItem("zipCode") ? "350" : "a definir"
+    );
+    const [zipCode, setZipCode] = useState(
+        localStorage.getItem("zipCode") || ""
+    );
 
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart))

@@ -8,7 +8,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export default function CheckoutPage({ shipping, zipCode }) {
+export default function CheckoutPage() {
     const [addresses, setAddresses] = useState([]);
     const [cards, setCards] = useState([]);
     const [cart] = useContext(CartContext);
@@ -67,9 +67,6 @@ export default function CheckoutPage({ shipping, zipCode }) {
                 </button>
             ) : "Você ainda não tem cartões cadastrados."}
             <Link to="/conta/cartoes">Cadastrar/editar cartões</Link>
-            
-            <div>{zipCode}</div>
-            <div>{shipping}</div>
         </CheckoutPageContainer>
     );
 }

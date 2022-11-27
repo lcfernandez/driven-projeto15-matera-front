@@ -24,3 +24,9 @@ export const MenuList = styled.ul`
 export const DetailsContainer = styled.div``;
 
 export const MainContainer = styled.div``;
+
+export const HelpContainer = styled.div`
+    img {
+        width: 16px;
+    }
+`;

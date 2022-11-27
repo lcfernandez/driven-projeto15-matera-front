@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import AccountPage from "./pages/AccountPage";
+import AddressesPage from "./pages/AddressesPage";
 import CardsPage from "./pages/CardsPage";
 import PurchasesPage from "./pages/PurchasesPage";
 import ProductsPage from "./pages/ProductsPage";
@@ -33,7 +34,7 @@ function App() {
         localStorage.getItem("token") || undefined
     ); */
 
-    const [token, setToken] = useState("e839563f-266e-40e6-9d9d-2ec4b523b09f");
+    const [token, setToken] = useState("6e5a3664-71d1-43ad-a430-62f1366f154c");
 
     const [username, setUsername] = useState("Laisse");
 
@@ -60,6 +61,7 @@ function App() {
                         <Route path="/conta" element={<AccountPage />} />
                         <Route path="/conta/pedidos" element={<PurchasesPage />} />
                         <Route path="/conta/cartoes" element={<CardsPage />} />
+                        <Route path="/conta/enderecos" element={<AddressesPage />} />
                         <Route path="/produtos" element={<ProductsPage />} />
                         <Route path="/produtos/cadeiras" element={<ChairsPage />} />
                         <Route path="/produtos/camas" element={<BedsPage />} />

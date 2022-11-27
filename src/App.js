@@ -23,7 +23,6 @@ import SofasPage from "./pages/SofasPage";
 import TablesPage from "./pages/TablesPage";
 import CartPage from "./pages/CartPage";
 
-import { AppContext } from "./components/context";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
@@ -31,55 +30,47 @@ function App() {
     const [cart, setCart] = useState(
         JSON.parse(localStorage.getItem("cart")) || []
     );
-    const [products, setProducts] = useState(undefined);
+
     const [token, setToken] = useState(
         localStorage.getItem("token") || undefined
     );
-
-    /* const [token, setToken] = useState("6e5a3664-71d1-43ad-a430-62f1366f154c");
-
-    const [username, setUsername] = useState("Laisse"); */
 
     const [username, setUsername] = useState(
         localStorage.getItem("username") || undefined
     );
 
     return (
-        <AppContext.Provider
-            value={{ products, setProducts }}
-        >
-            <BrowserRouter>
-                <GlobalStyle />
+        <BrowserRouter>
+            <GlobalStyle />
 
-                <CartContext.Provider value={[cart, setCart]}>
+            <CartContext.Provider value={[cart, setCart]}>
                 <TokenContext.Provider value={[token, setToken]}>
-                <UsernameContext.Provider value={[username, setUsername]}>
-                    <Header />
+                    <UsernameContext.Provider value={[username, setUsername]}>
+                        <Header />
 
-                    <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/contato" element={< ContactUsPage />} />
-                        <Route path="/sobre-nos" element={<AboutUsPage />} />
-                        <Route path="/cadastro" element={<SignUpPage />} />
-                        <Route path="/login" element={<SignInPage />} />
-                        <Route path="/conta" element={<AccountPage />} />
-                        <Route path="/conta/pedidos" element={<PurchasesPage />} />
-                        <Route path="/conta/cartoes" element={<CardsPage />} />
-                        <Route path="/conta/enderecos" element={<AddressesPage />} />
-                        <Route path="/produtos" element={<ProductsPage />} />
-                        <Route path="/produtos/cadeiras" element={<ChairsPage />} />
-                        <Route path="/produtos/camas" element={<BedsPage />} />
-                        <Route path="/produtos/sofas" element={<SofasPage />} />
-                        <Route path="/produtos/mesas" element={<TablesPage />} />
-                        <Route path="/carrinho" element={<CartPage />} />
-                    </Routes>
-                </UsernameContext.Provider>
+                        <Routes>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/contato" element={< ContactUsPage />} />
+                            <Route path="/sobre-nos" element={<AboutUsPage />} />
+                            <Route path="/cadastro" element={<SignUpPage />} />
+                            <Route path="/login" element={<SignInPage />} />
+                            <Route path="/conta" element={<AccountPage />} />
+                            <Route path="/conta/pedidos" element={<PurchasesPage />} />
+                            <Route path="/conta/cartoes" element={<CardsPage />} />
+                            <Route path="/conta/enderecos" element={<AddressesPage />} />
+                            <Route path="/produtos" element={<ProductsPage />} />
+                            <Route path="/produtos/cadeiras" element={<ChairsPage />} />
+                            <Route path="/produtos/camas" element={<BedsPage />} />
+                            <Route path="/produtos/sofas" element={<SofasPage />} />
+                            <Route path="/produtos/mesas" element={<TablesPage />} />
+                            <Route path="/carrinho" element={<CartPage />} />
+                        </Routes>
+                    </UsernameContext.Provider>
                 </TokenContext.Provider>
-                </CartContext.Provider>
+            </CartContext.Provider>
 
-                <Footer />
-            </BrowserRouter>
-        </AppContext.Provider>
+            <Footer />
+        </BrowserRouter>
     );
 }
 

@@ -30,17 +30,17 @@ function App() {
         JSON.parse(localStorage.getItem("cart")) || []
     );
     const [products, setProducts] = useState(undefined);
-    /* const [token, setToken] = useState(
+    const [token, setToken] = useState(
         localStorage.getItem("token") || undefined
-    ); */
+    );
 
-    const [token, setToken] = useState("6e5a3664-71d1-43ad-a430-62f1366f154c");
+    /* const [token, setToken] = useState("6e5a3664-71d1-43ad-a430-62f1366f154c");
 
-    const [username, setUsername] = useState("Laisse");
+    const [username, setUsername] = useState("Laisse"); */
 
-    /* const [username, setUsername] = useState(
+    const [username, setUsername] = useState(
         localStorage.getItem("username") || undefined
-    ); */
+    );
 
     return (
         <AppContext.Provider

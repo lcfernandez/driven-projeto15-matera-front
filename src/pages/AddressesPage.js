@@ -13,6 +13,7 @@ import styled from "styled-components";
 const AddressesPage = () => {
     const [addresses, setAddresses] = useState(undefined);
     const [showForm, setShowForm] = useState(false);
+    const [editButton, setEditButton] = useState(false);
     const [token] = useContext(TokenContext);
 
     const emptyForm = { firstName: "", lastName: "", address: "", cep: "", number: "", complement: "", district: "", city: "", estate: "", phone: "" };
@@ -260,7 +261,14 @@ const AddressesPage = () => {
                                 placeholder="Digite o celular"
                                 required
                             />
-                            <button onClick={e => addAddress(e)}>Cadastrar</button>
+                            {
+                                !editButton
+                                    ?
+                                    <button onClick={e => addAddress(e)}>Cadastrar</button>
+                                    :
+                                    <button onClick={e => editAddress(e)}>Editar</button>
+                            }
+
                         </AddressForm>
                         :
                         ""

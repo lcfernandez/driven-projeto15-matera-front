@@ -1,9 +1,10 @@
 import contact from "../assets/images/contact.png";
-import chatbubble from "../assets/images/chatbubble-ellipses-outline.svg";
-import help from "../assets/images/help-circle-outline.svg";
+import chat from "../assets/images/chatbubble-ellipses-outline.svg";
+import faq from "../assets/images/help-circle-outline.svg";
+import message from "../assets/images/mail-outline.svg"
 import whatsapp from "../assets/images/logo-whatsapp.svg";
 import swap from "../assets/images/swap-horizontal-outline.svg";
-import { ContactImg, ContactTitle } from "../assets/styles/ContactUsStyles";
+import { ContactContainer, ContactImg, ContactTitle, MenuContainer, MenuList, DetailsContainer, MainContainer } from "../assets/styles/ContactUsStyles";
 import { useState } from "react";
 
 const ContactUsPage = () => {
@@ -19,22 +20,17 @@ const ContactUsPage = () => {
     const [help, setHelp] = useState(options);
 
     return (
-        <div className="container">
+        <ContactContainer>
             <ContactImg />
             <ContactTitle />
-            <div>
-                <div className="side-menu">
-                    <ul>
-                        <li>
-                            <img />
-                            <p></p>
-                        </li>
-                    </ul>
-                </div>
-                <div className="maininfo"></div>
-            </div>
+            <MainContainer>
+                <MenuContainer>
 
-        </div>
+                </MenuContainer>
+                <DetailsContainer></DetailsContainer>
+            </MainContainer>
+
+        </ContactContainer>
     );
 };
 

@@ -140,8 +140,28 @@ const AddressesPage = () => {
         }
     };
 
+    const deleteAddress = async id => {
+        const confirmed = window.confirm("Você tem certeza que deseja excluir esse endereço?");
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        if (confirmed) {
+            try {
+                await axios.delete(`${BASE_URL}/addresses/${id}`, config);
+            }catch(err) {
+                alert(err.response.data.message);
+            }
+        }
+
+        getAddresses(token);
+    };
+
     const ListOfAddresses = (list) => {
-        const { firstName, lastName, address, cep, number, complement, district, city, estate } = list;
+        const { _id, firstName, lastName, address, cep, number, complement, district, city, estate } = list;
         return (
             <AddressListItem>
                 <div>
@@ -151,7 +171,7 @@ const AddressesPage = () => {
                     <p>{`${cep}`}</p>
                 </div>
                 <div>
-                    <button>
+                    <button onClick={e => deleteAddress(_id)}>
                         <DeleteImg
                             alt="ícone de deletar"
                             src={close}

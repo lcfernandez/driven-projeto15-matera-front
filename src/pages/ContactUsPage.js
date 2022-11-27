@@ -21,7 +21,7 @@ const ContactUsPage = () => {
 
     return (
         <ContactContainer>
-            <ContactImg />
+            <ContactImg src={contact} alt="foto de uma mulher com um notebook no colo"/>
             <ContactTitle />
             <MainContainer>
                 <MenuContainer>

@@ -21,12 +21,24 @@ export const MenuList = styled.ul`
     }
 `;
 
-export const DetailsContainer = styled.div``;
+export const DetailsContainer = styled.div`
+    margin-left: 50px;
+`;
 
-export const MainContainer = styled.div``;
+export const MainContainer = styled.div`
+    display: flex;
+`;
 
 export const HelpContainer = styled.div`
+    display: flex;
     img {
         width: 16px;
+        height: 16px;
     }
 `;
+
+export const CloseButton = styled.button`
+    width: 18px;
+    height: 18px;
+    margin-left: 15px;
+ `;

@@ -5,11 +5,18 @@ import message from "../assets/images/mail-outline.svg"
 import whatsapp from "../assets/images/logo-whatsapp.svg";
 import swap from "../assets/images/swap-horizontal-outline.svg";
 import close from "../assets/images/close-outline.png"
-import { ContactContainer, ContactImg, ContactTitle, MenuContainer, MenuList, DetailsContainer, MainContainer, HelpContainer } from "../assets/styles/ContactUsStyles";
-import { useState } from "react";
+import { ContactContainer, ContactImg, ContactTitle, MenuContainer, MenuList, DetailsContainer, MainContainer, HelpContainer, CloseButton } from "../assets/styles/ContactUsStyles";
+import UsernameContext from "../contexts/UsernameContext";
+import { useContext, useState } from "react";
 
 const ContactUsPage = () => {
+    const [username] = useContext(UsernameContext);
     const [help, setHelp] = useState(null);
+
+    const closeHelp = e => {
+        e.preventDefault();
+        setHelp(null);
+    };
 
     const ShowHelpType = ({ type }) => {
         if (type === "faq") {
@@ -20,7 +27,9 @@ const ContactUsPage = () => {
                         <p>Formas de pagamento, devoluções, materiais, medidas... Temos tudo aqui!</p>
                         <button>Ver FAQ</button>
                     </div>
-                    <img src={close} alt="ícone de fechar" />
+                    <CloseButton onClick={e => closeHelp(e)}>
+                        <img src={close} alt="ícone de fechar" />
+                    </CloseButton>
                 </HelpContainer>
             );
         } else if (type === "changes") {
@@ -32,7 +41,9 @@ const ContactUsPage = () => {
                         <p>É muito mais fácil!</p>
                         <button>Solicitar devolução</button>
                     </div>
-                    <img src={close} alt="ícone de fechar" />
+                    <CloseButton onClick={e => closeHelp(e)}>
+                        <img src={close} alt="ícone de fechar" />
+                    </CloseButton>
                 </HelpContainer>
             );
         } else if (type === "message") {
@@ -44,7 +55,9 @@ const ContactUsPage = () => {
                         <p>Retorno em até 1 dia últil.</p>
                         <button>Enviar mensagem</button>
                     </div>
-                    <img src={close} alt="ícone de fechar" />
+                    <CloseButton onClick={e => closeHelp(e)}>
+                        <img src={close} alt="ícone de fechar" />
+                    </CloseButton>
                 </HelpContainer>
             );
         } else if (type === "chat") {
@@ -57,7 +70,9 @@ const ContactUsPage = () => {
                         <p>Sábado: 12:00 - 20:00</p>
                         <button>Iniciar chat</button>
                     </div>
-                    <img src={close} alt="ícone de fechar" />
+                    <CloseButton onClick={e => closeHelp(e)}>
+                        <img src={close} alt="ícone de fechar" />
+                    </CloseButton>
                 </HelpContainer>
             );
         } else if (type === "whatsapp") {
@@ -69,17 +84,19 @@ const ContactUsPage = () => {
                         <p>Sábado: 12:00 - 20:00</p>
                         <button>Iniciar conversa</button>
                     </div>
-                    <img src={close} alt="ícone de fechar" />
+                    <CloseButton onClick={e => closeHelp(e)}>
+                        <img src={close} alt="ícone de fechar" />
+                    </CloseButton>
                 </HelpContainer>
             );
         }
     };
 
-
     return (
         <ContactContainer>
             <ContactImg src={contact} alt="foto de uma mulher com um notebook no colo" />
-            <ContactTitle />
+            <ContactTitle>Olá {username}!</ContactTitle>
+            <p>Estamos aqui para ajudar!</p>
             <MainContainer>
                 <MenuContainer>
                     <MenuList>
@@ -109,7 +126,6 @@ const ContactUsPage = () => {
                     <ShowHelpType type={help} />
                 </DetailsContainer>
             </MainContainer>
-
         </ContactContainer>
     );
 };

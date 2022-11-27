@@ -2,14 +2,13 @@ import { ProductsTitle } from "../components/ProductsTitle";
 import { ProductsContainer, ProductsUl, ListItem } from "../common.js/common";
 import { BASE_URL } from "../constants/url";
 import { ProductsMenu } from "../components/ProductsMenu";
-import { useContext, useEffect } from "react";
-import { AppContext } from "../components/context";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CartContext from "../contexts/CartContext";
 
 export const ProductsPage = () => {
-    const { products, setProducts } = useContext(AppContext);
+    const [products, setProducts] = useState(undefined);
     const [cart, setCart] = useContext(CartContext);
 
     const navigate = useNavigate();

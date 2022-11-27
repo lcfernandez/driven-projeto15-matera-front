@@ -18,10 +18,25 @@ export default function CheckoutPage() {
         JSON.parse(localStorage.getItem("deliveryAddress")) || undefined
     );
     const [purchase, setPurchase] = useState(undefined);
+    const [shipping, setShipping] = useState(
+        localStorage.getItem("deliveryAddress") ? "350" : "a definir"
+    );
+
+    function calculateTotal() {
+            if (isNaN(Number(shipping))) {
+                return "a definir";
+            }
+
+            let subtotal = 0;
+            cart.forEach(item => subtotal += Number(item.sumPrice));
+            return subtotal + Number(shipping);
+        }
 
     function handleDeliveryAddress(address) {
         setDeliveryAddress(address);
         localStorage.setItem("deliveryAddress", JSON.stringify(address));
+
+        setShipping("350");
     }
 
     useEffect(() => {
@@ -46,7 +61,7 @@ export default function CheckoutPage() {
     
     return (
         <CheckoutPageContainer>
-            <div onClick={() => console.log(purchase, deliveryAddress)}>
+            <div onClick={() => console.log(purchase, deliveryAddress, shipping)}>
                 Pedido
             </div>
 
@@ -66,9 +81,15 @@ export default function CheckoutPage() {
                 <tfoot>
                     <tr>
                         <th></th>
+                        <th>Frete</th>
+                        <th></th>
+                        <th>R$ {shipping}</th>
+                    </tr>
+                    <tr>
+                        <th></th>
                         <th>Total</th>
                         <th></th>
-                        <th>R$ total</th>
+                        <th>R$ {calculateTotal()}</th>
                     </tr>
                 </tfoot>
             </table>
@@ -79,12 +100,12 @@ export default function CheckoutPage() {
             
             {addresses.length > 0 ? addresses.map(address =>
                 <button key={address._id} onClick={() => handleDeliveryAddress(address)}>
-                        <p>{`${address.firstName} ${address.lastName}`}</p>
-                        <p>{`${address.address}, ${address.number} - ${address.complement}`}</p>
-                        <p>{`${address.district} - ${address.city} - ${address.estate}`}</p>
-                        <p>{`${address.cep}`}</p>
-                    </button>
-                ) : "Você ainda não tem endereços cadastrados."}
+                    <p>{`${address.firstName} ${address.lastName}`}</p>
+                    <p>{`${address.address}, ${address.number} - ${address.complement}`}</p>
+                    <p>{`${address.district} - ${address.city} - ${address.estate}`}</p>
+                    <p>{`${address.cep}`}</p>
+                </button>
+            ) : "Você ainda não tem endereços cadastrados."}
 
             <Link to="/conta/enderecos">Cadastrar/editar endereço</Link>
 

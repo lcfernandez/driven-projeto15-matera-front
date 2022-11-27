@@ -43,7 +43,7 @@ export default function CartPage() {
             return "a definir";
         }
 
-        return Number(calculateSubtotal()) + Number(shipping);
+        return calculateSubtotal() + Number(shipping);
     }
 
     function handleCart() {

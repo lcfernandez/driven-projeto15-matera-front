@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import UsernameContext from "../contexts/UsernameContext";
+import TokenContext from "../contexts/TokenContext";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -8,6 +9,15 @@ import { AccountMenu } from "../components/AccountMenu";
 
 const AccountPage = () => {
     const [username] = useContext(UsernameContext);
+    const [token] = useContext(TokenContext);
+
+    if (!token || token === "") {
+        return (
+            <div>
+            Você precisa estar logado para ver a sua conta.
+            </div>
+        );
+    }
 
     return (
         <AccountContainer>

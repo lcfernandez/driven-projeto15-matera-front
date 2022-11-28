@@ -6,6 +6,7 @@ import TokenContext from "../contexts/TokenContext";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const PurchasesPage = () => {
     const [token] = useContext(TokenContext);
@@ -48,9 +49,11 @@ const PurchasesPage = () => {
                                         {purchase.firstProduct} {purchase.remainingProducts > 0 && `e mais ${purchase.remainingProducts} produtos`}
                                     </th>
                                     <th>
-                                        <button onClick={() => console.log(purchase.id)}>
-                                            Ver pedido
-                                        </button>
+                                        <Link to={`/conta/pedidos/${purchase.id}`}>
+                                            <button>
+                                                Ver pedido
+                                            </button>
+                                        </Link>
                                     </th>
                                 </tr>
                             )}

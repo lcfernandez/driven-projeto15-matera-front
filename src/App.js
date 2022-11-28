@@ -21,6 +21,7 @@ import SofasPage from "./pages/SofasPage";
 import TablesPage from "./pages/TablesPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import PurchasePage from "./pages/PurchasePage";
 
 import { AppContext } from "./components/context";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -56,6 +57,7 @@ function App() {
                         <Route path="/login" element={<SignInPage />} />
                         <Route path="/conta" element={<AccountPage />} />
                         <Route path="/conta/pedidos" element={<PurchasesPage />} />
+                        <Route path="/conta/pedidos/:idPurchase" element={<PurchasePage />} />
                         <Route path="/conta/cartoes" element={<CardsPage />} />
                         <Route path="/conta/enderecos" element={<AddressesPage />} />
                         <Route path="/produtos" element={<ProductsPage />} />

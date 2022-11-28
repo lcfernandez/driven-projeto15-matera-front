@@ -42,11 +42,14 @@ const CardsPage = () => {
     };
 
     const showServerError = err => {
+        console.log(err);
         const errors = err.map(e => {
-            if (e === '"number" length must be at least 16 characters long') {
+            if (e === '\"number\" length must be less than or equal to 16 characters long') {
                 return ("Insira apenas os 16 números do cartão");
-            } else if (e === '"expiration" length must be at least 5 characters long') {
+            } else if (e === '\"expiration\" length must be less than or equal to 5 characters long') {
                 return ("A data de vencimento deve seguir o formanto mm/aa");
+            } else if (e === '\"name\" is not allowed to be empty') {
+                return ("O nome do titular é obrigatório");
             } else {
                 return ("O código de segurança é formado por três dígitos");
             }
@@ -92,7 +95,7 @@ const CardsPage = () => {
             try {
                 await axios.post(`${BASE_URL}/cards`, validForm, config);
                 clearForm();
-                getCards();
+                getCards(token);
             } catch (err) {
                 alert(showServerError(err.response.data.errors));
             }
@@ -110,7 +113,7 @@ const CardsPage = () => {
             }
         }
 
-        getCards();
+        getCards(token);
     };
 
     const ListofCards = (card) => {

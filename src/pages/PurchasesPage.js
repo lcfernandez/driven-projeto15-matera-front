@@ -38,7 +38,7 @@ const PurchasesPage = () => {
                     <table>
                         <tbody>
                             {purchases.map(purchase =>
-                                <tr>
+                                <tr key={purchase.id}>
                                     <th>{purchase.date} - {purchase.time}</th>
                                     <th>
                                         <PurchasesImg

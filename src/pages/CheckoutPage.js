@@ -4,12 +4,12 @@ import CartContext from "../contexts/CartContext";
 import TokenContext from "../contexts/TokenContext";
 
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
 export default function CheckoutPage() {
-    const [cart] = useContext(CartContext);
+    const [cart, setCart] = useContext(CartContext);
     const [token] = useContext(TokenContext);
 
     const [addresses, setAddresses] = useState([]);
@@ -17,12 +17,18 @@ export default function CheckoutPage() {
     const [deliveryAddress, setDeliveryAddress] = useState(
         JSON.parse(localStorage.getItem("deliveryAddress")) || undefined
     );
+    const [disabled, setDisabled] = useState(false);
+    const [paymentComplement, setPaymentComplement] = useState(
+        JSON.parse(localStorage.getItem("paymentComplement")) || undefined
+    );
     const [paymentOption, setPaymentOption] = useState(
-        JSON.parse(localStorage.getItem("paymentOption")) || undefined
+        localStorage.getItem("paymentOption") || undefined
     );
     const [shipping, setShipping] = useState(
         localStorage.getItem("deliveryAddress") ? "350" : "a definir"
     );
+
+    const navigate = useNavigate();
 
     function calculateTotal() {
         if (isNaN(Number(shipping))) {
@@ -35,15 +41,73 @@ export default function CheckoutPage() {
         return subtotal + Number(shipping);
     }
 
+    function finishPurchase() {
+        setDisabled(true);
+
+        const date = new Date();
+        const day = date.getDate();
+        const month = (date.getMonth() + 1);
+        const year = date.getFullYear();
+        const hour = date.getHours();
+        const minutes = date.getMinutes();
+
+        const body = {
+            products: cart,
+            deliveryAddress,
+            shipping,
+            paymentOption,
+            paymentComplement,
+            date: `${day}/${month}/${year}`,
+            time: `${hour}:${minutes}`
+        };
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        axios
+            .post(`${BASE_URL}/purchases`, body, config)
+            .then(() => {
+                alert("Seu pedido foi concluído com sucesso! Aguarde o e-mail com informação/confirmação do meio de pagamento escolhido!");
+                
+                setCart([]);
+                localStorage.removeItem("cart");
+                localStorage.removeItem("deliveryAddress");
+                localStorage.removeItem("paymentComplement");
+                localStorage.removeItem("paymentOption");
+                localStorage.removeItem("zipCode");
+
+                navigate("/");
+
+            })
+            .catch(err => {
+                alert(err.response.data.message);
+                setDisabled(false);
+            });
+    }
+
     function handleDeliveryAddress(address) {
         setShipping("350");
         setDeliveryAddress(address);
         localStorage.setItem("deliveryAddress", JSON.stringify(address));
     }
 
-    function handlePaymentOption(option) {
+    function handlePaymentOption(payment) {
+        let option;
+
+        if (payment === "Boleto bancário" || payment === "Pix") {
+            option = payment;
+            localStorage.removeItem("paymentComplement");
+        } else {
+            option = "Cartão";
+            setPaymentComplement(payment);    
+            localStorage.setItem("paymentComplement", JSON.stringify(payment));
+        }
+
         setPaymentOption(option);
-        localStorage.setItem("paymentOption", JSON.stringify(option));
+        localStorage.setItem("paymentOption", option);
     }
 
     useEffect(() => {
@@ -136,7 +200,8 @@ export default function CheckoutPage() {
             </ul>
 
             <button
-                disabled={!(cart && deliveryAddress && !isNaN(Number(shipping)) && paymentOption) && true}
+                disabled={(!(cart && deliveryAddress && !isNaN(Number(shipping)) && paymentOption) || disabled) && true}
+                onClick={finishPurchase}
             >
                 Concluir compra
             </button>
@@ -149,5 +214,9 @@ const CheckoutPageContainer = styled.div`
 
     img {
         width: 100px;
+    }
+
+    > button:last-child {
+        margin: 20px 0 50px 0;
     }
 `;

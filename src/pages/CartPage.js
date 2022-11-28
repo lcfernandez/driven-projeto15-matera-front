@@ -149,6 +149,10 @@ const CartContainer = styled.div`
     tr:nth-child(1) {
         text-align: left;
     }
+
+    > div:first-child {
+        margin-bottom: 50px;
+    }
 `;
 
 const PurchasePreviousInfo = styled.div`

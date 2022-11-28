@@ -57,7 +57,7 @@ export default function HomePage() {
                                             setCart(cartUpdate);
                                         } else {
                                             setCart([...cart, {
-                                                id: product.id,
+                                                id: product._id,
                                                 image: product.image,
                                                 name: product.name,
                                                 price: product.price,

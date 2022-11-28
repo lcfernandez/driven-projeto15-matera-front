@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { BASE_URL } from "../constants/url";
 import CartContext from "../contexts/CartContext";
 

@@ -38,9 +38,7 @@ export default function Header() {
             </div>
 
             <div>
-                {handleActions()} -
-
-                Carrinho
+                {handleActions()} - <Link to="/carrinho">Carrinho</Link>
             </div>
         </HeaderContainer>
     )

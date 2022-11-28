@@ -127,6 +127,23 @@ export default function CheckoutPage() {
             .then(res => setCards(res.data))
             .catch(err => alert(err.response.data.message));
     }, []);
+
+
+    if (!token || token === "") {
+        return (
+            <div>
+                Você precisa estar logado para efetuar o seu pedido.
+            </div>
+        );
+    }
+
+    if (cart.length === 0) {
+        return (
+            <div>
+                Adicione produtos ao seu carrinho.
+            </div>
+        )
+    }
     
     return (
         <CheckoutPageContainer>

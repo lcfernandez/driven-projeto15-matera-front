@@ -1,4 +1,5 @@
-import { COMPLEMENTARY_BG_COLOR, COMPLEMENTARY_TXT_COLOR } from "../constants/colors";
+import homepage from "../assets/images/homepage.jpg";
+
 import { BASE_URL } from "../constants/url";
 
 import CartContext from "../contexts/CartContext";
@@ -25,7 +26,7 @@ export default function HomePage() {
     return (
         <HomePageContainer>
             <Slogan>
-                Slogan bonitinho
+                <img alt={"imagem com slogan"} src={homepage} />
             </Slogan>
 
             <div>
@@ -96,7 +97,7 @@ const NewProducts = styled.div`
 `;
 
 const Slogan = styled.div`
-    background-color: ${COMPLEMENTARY_BG_COLOR};
-    color: ${COMPLEMENTARY_TXT_COLOR};
-    text-align: center;
+    img {
+        width: 100%;
+    }
 `;

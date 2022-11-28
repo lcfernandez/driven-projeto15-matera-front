@@ -6,7 +6,39 @@ import person from "../assets/images/person-outline.png";
 
 import { AccountMenuContainer, AccountLinks, Button } from "../assets/styles/AccountStyle";
 
+import TokenContext from "../contexts/TokenContext";
+import UsernameContext from "../contexts/UsernameContext";
+
+import { BASE_URL } from "../constants/url";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 export const AccountMenu = () => {
+    const [token, setToken] = useContext(TokenContext);
+    const [username, setUsername] = useContext(UsernameContext);
+
+    const navigate = useNavigate();
+
+    function signOut() {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        axios
+            .post(`${BASE_URL}/sign-out`, {}, config)
+            .then(() => {
+                setToken(undefined);
+                setUsername(undefined);
+                localStorage.removeItem("token");
+                localStorage.removeItem("username");
+                navigate("/");
+            })
+            .catch(err => alert(err.response.data.message));
+    }
+
     return (
         <AccountMenuContainer>
             <ul>
@@ -47,7 +79,7 @@ export const AccountMenu = () => {
                     </AccountLinks>
                 </li>
             </ul>
-            <Button>
+            <Button onClick={() => {signOut()}}>
                 <img
                     alt="ícone de sair"
                     src={logOut}

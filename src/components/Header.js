@@ -22,17 +22,19 @@ export default function Header() {
     return (
         <HeaderContainer>
             <div>
-                Matera
+                <Link to="/">Matera</Link>
             </div>
 
             <div>
-                <Link to="/produtos">Produtos</Link> -
-
-                Sobre
+                <Link to="/produtos">Produtos</Link>
 
                 -
 
-                Contato
+                <Link to="/sobre-nos">Sobre</Link>
+
+                -
+
+                <Link to="/contato">Contato</Link>
             </div>
 
             <div>

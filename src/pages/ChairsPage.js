@@ -3,20 +3,31 @@ import { ProductsContainer, ProductsUl, ListItem } from "../common.js/common";
 import { BASE_URL } from "../constants/url";
 import { ProductsMenu } from "../components/ProductsMenu";
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../components/context";
 import { useNavigate } from "react-router-dom";
 import CartContext from "../contexts/CartContext";
+import axios from "axios";
 
 export const ChairsPage = () => {
-    const { products } = useContext(AppContext);
+    const [products, setProducts] = useState(undefined);
     const [chairs, setChairs] = useState(undefined);
     const [cart, setCart] = useContext(CartContext);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        filterProduct(products);
-    }, [products]);
+        getProducts();
+    }, [setProducts]);
+
+    const getProducts = async () => {
+        try {
+            const res = await axios.get(`${BASE_URL}/products`);
+            setProducts(res.data);
+            filterProduct(res.data);
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    };
+
 
     const filterProduct = products => {
         const chairs = products.filter(p => p.type === "cadeira");

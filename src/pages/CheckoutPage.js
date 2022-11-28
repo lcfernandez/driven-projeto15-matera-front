@@ -4,9 +4,9 @@ import CartContext from "../contexts/CartContext";
 import TokenContext from "../contexts/TokenContext";
 
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export default function CheckoutPage() {
     const [cart] = useContext(CartContext);
@@ -20,28 +20,25 @@ export default function CheckoutPage() {
     const [paymentOption, setPaymentOption] = useState(
         JSON.parse(localStorage.getItem("paymentOption")) || undefined
     );
-    const [purchase, setPurchase] = useState(undefined);
     const [shipping, setShipping] = useState(
         localStorage.getItem("deliveryAddress") ? "350" : "a definir"
     );
-    const [total, setTotal] = useState(
-        localStorage.getItem("total") || "a definir"
-    );
 
-    function handleDeliveryAddress(address) {
-        setDeliveryAddress(address);
-        localStorage.setItem("deliveryAddress", JSON.stringify(address));
-
-        setShipping("350");
+    function calculateTotal() {
+        if (isNaN(Number(shipping))) {
+            return "a definir";
+        }
 
         let subtotal = 0;
         cart.forEach(item => subtotal += Number(item.sumPrice));
 
-        const total = subtotal + Number(shipping);
-        setTotal(total);
-        localStorage.setItem("total", total);
-        
-        return total;
+        return subtotal + Number(shipping);
+    }
+
+    function handleDeliveryAddress(address) {
+        setShipping("350");
+        setDeliveryAddress(address);
+        localStorage.setItem("deliveryAddress", JSON.stringify(address));
     }
 
     function handlePaymentOption(option) {
@@ -50,8 +47,6 @@ export default function CheckoutPage() {
     }
 
     useEffect(() => {
-        setPurchase({ products: cart });
-
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -71,7 +66,7 @@ export default function CheckoutPage() {
     
     return (
         <CheckoutPageContainer>
-            <div onClick={() => console.log(purchase, deliveryAddress, shipping, total, paymentOption)}>
+            <div>
                 Pedido
             </div>
 
@@ -99,12 +94,10 @@ export default function CheckoutPage() {
                         <th></th>
                         <th>Total</th>
                         <th></th>
-                        <th>R$ {total}</th>
+                        <th>R$ {calculateTotal()}</th>
                     </tr>
                 </tfoot>
             </table>
-
-            <h1></h1>
 
             <h1>Entrega</h1>
             
@@ -131,6 +124,8 @@ export default function CheckoutPage() {
 
             <Link to="/conta/cartoes">Cadastrar/editar cartões</Link>
 
+            <h2>Outras Opções</h2>
+
             <ul>
                 <li>
                     <button onClick={() => handlePaymentOption("Boleto bancário")}>Boleto bancário</button>
@@ -139,6 +134,12 @@ export default function CheckoutPage() {
                     <button onClick={() => handlePaymentOption("Pix")}>Pix</button>
                 </li>
             </ul>
+
+            <button
+                disabled={!(cart && deliveryAddress && !isNaN(Number(shipping)) && paymentOption) && true}
+            >
+                Concluir compra
+            </button>
         </CheckoutPageContainer>
     );
 }

@@ -1,1 +1,1 @@
-export const BASE_URL = "https://projeto15-matera-api.onrender.com/";
+export const BASE_URL = "https://projeto15-matera-api.onrender.com";

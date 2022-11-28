@@ -3,14 +3,19 @@ import { COMPLEMENTARY_BG_COLOR, COMPLEMENTARY_TXT_COLOR } from "../constants/co
 import styled from "styled-components";
 
 export default function Footer() {
+    function currentYear() {
+        const date = new Date();
+        return date.getFullYear();
+    }
+
     return (
         <FooterContainer>
             <div>
-                Copyright
+                Copyright © 2022-{currentYear()}
             </div>
             
             <div>
-                Matera, CNPJ
+                Matera S.A. / CNPJ: 36.114.499/0001-05
             </div>
         </FooterContainer>
     );

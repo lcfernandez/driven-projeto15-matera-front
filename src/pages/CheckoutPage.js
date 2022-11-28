@@ -17,26 +17,36 @@ export default function CheckoutPage() {
     const [deliveryAddress, setDeliveryAddress] = useState(
         JSON.parse(localStorage.getItem("deliveryAddress")) || undefined
     );
+    const [paymentOption, setPaymentOption] = useState(
+        JSON.parse(localStorage.getItem("paymentOption")) || undefined
+    );
     const [purchase, setPurchase] = useState(undefined);
     const [shipping, setShipping] = useState(
         localStorage.getItem("deliveryAddress") ? "350" : "a definir"
     );
-
-    function calculateTotal() {
-            if (isNaN(Number(shipping))) {
-                return "a definir";
-            }
-
-            let subtotal = 0;
-            cart.forEach(item => subtotal += Number(item.sumPrice));
-            return subtotal + Number(shipping);
-        }
+    const [total, setTotal] = useState(
+        localStorage.getItem("total") || "a definir"
+    );
 
     function handleDeliveryAddress(address) {
         setDeliveryAddress(address);
         localStorage.setItem("deliveryAddress", JSON.stringify(address));
 
         setShipping("350");
+
+        let subtotal = 0;
+        cart.forEach(item => subtotal += Number(item.sumPrice));
+
+        const total = subtotal + Number(shipping);
+        setTotal(total);
+        localStorage.setItem("total", total);
+        
+        return total;
+    }
+
+    function handlePaymentOption(option) {
+        setPaymentOption(option);
+        localStorage.setItem("paymentOption", JSON.stringify(option));
     }
 
     useEffect(() => {
@@ -61,7 +71,7 @@ export default function CheckoutPage() {
     
     return (
         <CheckoutPageContainer>
-            <div onClick={() => console.log(purchase, deliveryAddress, shipping)}>
+            <div onClick={() => console.log(purchase, deliveryAddress, shipping, total, paymentOption)}>
                 Pedido
             </div>
 
@@ -89,7 +99,7 @@ export default function CheckoutPage() {
                         <th></th>
                         <th>Total</th>
                         <th></th>
-                        <th>R$ {calculateTotal()}</th>
+                        <th>R$ {total}</th>
                     </tr>
                 </tfoot>
             </table>
@@ -111,8 +121,10 @@ export default function CheckoutPage() {
 
             <h1>Pagamento</h1>
 
+            <h2>Cartões</h2>
+
             {cards.length > 0 ? cards.map(card =>
-                <button key={card._id}>
+                <button key={card._id} onClick={() => handlePaymentOption(card)}>
                         <p>{`${card.number}`}</p>
                     </button>
             ) : "Você ainda não tem cartões cadastrados."}         
@@ -121,10 +133,10 @@ export default function CheckoutPage() {
 
             <ul>
                 <li>
-                    <button>Boleto bancário</button>
+                    <button onClick={() => handlePaymentOption("Boleto bancário")}>Boleto bancário</button>
                 </li>
                 <li>
-                    <button>Pix</button>   
+                    <button onClick={() => handlePaymentOption("Pix")}>Pix</button>
                 </li>
             </ul>
         </CheckoutPageContainer>

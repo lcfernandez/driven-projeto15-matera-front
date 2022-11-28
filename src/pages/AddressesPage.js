@@ -134,6 +134,14 @@ const AddressesPage = () => {
                 setEditButton(false);
                 clearForm();
                 getAddresses(token);
+                const deliveryAddress = JSON.parse(localStorage.getItem("deliveryAddress"));
+                if (deliveryAddress && deliveryAddress._id === _id) {
+                    localStorage.setItem(
+                        "deliveryAddress", JSON.stringify(
+                            { _id, userId: deliveryAddress.userId, ...payload }
+                        )
+                    );
+                }
             } catch (err) {
                 alert(err.response.data.message);
             }
@@ -152,6 +160,10 @@ const AddressesPage = () => {
         if (confirmed) {
             try {
                 await axios.delete(`${BASE_URL}/addresses/${id}`, config);
+                const deliveryAddress = JSON.parse(localStorage.getItem("deliveryAddress"));
+                if (deliveryAddress && deliveryAddress._id === id) {
+                    localStorage.removeItem("deliveryAddress");
+                }
             } catch (err) {
                 alert(err.response.data.message);
             }

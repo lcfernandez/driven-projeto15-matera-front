@@ -44,7 +44,8 @@ const CardsPage = () => {
     const showServerError = err => {
         console.log(err);
         const errors = err.map(e => {
-            if (e === '\"number\" length must be less than or equal to 16 characters long') {
+            if (e === '\"number\" length must be less than or equal to 16 characters long'
+                || e === '\"number\" length must be at least 16 characters long') {
                 return ("Insira apenas os 16 números do cartão");
             } else if (e === '\"expiration\" length must be less than or equal to 5 characters long') {
                 return ("A data de vencimento deve seguir o formanto mm/aa");
@@ -108,6 +109,11 @@ const CardsPage = () => {
         if (confirmed) {
             try {
                 await axios.delete(`${BASE_URL}/cards/${id}`, config);
+                const paymentComplement = JSON.parse(localStorage.getItem("paymentComplement"));
+                if (paymentComplement && paymentComplement._id === id) {
+                    localStorage.removeItem("paymentComplement");
+                    localStorage.removeItem("paymentOption");
+                }
             } catch (err) {
                 alert(err.response.data.message);
             }
